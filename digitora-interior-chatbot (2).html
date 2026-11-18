@@ -1,0 +1,3273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Feather Interior — Interior Architecture</title>
+<meta name="description" content="Design Feather Interior is an interior architecture studio crafting spaces that feel like they've always belonged — for homes, galleries, hotels and restaurants.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+  DESIGN FEATHER INTERIOR — Premium Storytelling
+   ============================================================ */
+:root{
+  --cream:#F5F0EB;
+  --cream-alt:#EDE6DE;
+  --ivory:#FAF7F3;
+  --ink:#1A1612;
+  --ink-soft:#4A4238;
+  --ink-dim:#7A7268;
+  --gold:#C4956A;
+  --gold-light:#D8B894;
+  --gold-dim:#A67B55;
+  --taupe:#8B7355;
+  --warm:#E8DDD0;
+  --warm-bg:#F0E9E2;
+  --dark:#2C241B;
+
+  --serif:"Manrope", "Segoe UI", sans-serif;
+  --sans:"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --container:1280px;
+  --gutter:clamp(24px, 4vw, 80px);
+  --section-pad:clamp(100px, 12vw, 180px);
+
+  --ease:cubic-bezier(.16,.84,.32,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; margin:0; padding:0; }
+button{ font-family:inherit; cursor:pointer; font-size:inherit; border:0; background:none; color:inherit; }
+h1,h2,h3,h4{ margin:0; font-family:var(--serif); font-weight:400; color:var(--ink); }
+p{ margin:0; }
+
+::selection{ background:var(--gold); color:var(--ivory); }
+
+:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:4px;
+}
+
+/* ============================================================
+   Scrollbar
+   ============================================================ */
+::-webkit-scrollbar{ width:5px; }
+::-webkit-scrollbar-track{ background:var(--cream); }
+::-webkit-scrollbar-thumb{ background:var(--gold-dim); border-radius:4px; }
+::-webkit-scrollbar-thumb:hover{ background:var(--gold); }
+
+/* ============================================================
+   Skip Link
+   ============================================================ */
+.skip-link{
+  position:absolute; left:-9999px; top:0;
+  background:var(--ink); color:var(--ivory);
+  padding:14px 24px; z-index:999;
+  font-family:var(--sans); font-size:14px;
+  transition:left .2s var(--ease);
+}
+.skip-link:focus{ left:0; }
+
+/* ============================================================
+   Container
+   ============================================================ */
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+
+/* ============================================================
+   Header / Navigation
+   ============================================================ */
+.site-header{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:200;
+  padding:28px 0;
+  transition:padding .5s var(--ease), background .5s var(--ease), backdrop-filter .5s var(--ease);
+  mix-blend-mode:difference;
+  color:var(--ivory);
+}
+.site-header.scrolled{
+  padding:16px 0;
+  background:rgba(245,240,235,.88);
+  backdrop-filter:blur(16px) saturate(1.1);
+  -webkit-backdrop-filter:blur(16px) saturate(1.1);
+  mix-blend-mode:normal;
+  color:var(--ink);
+}
+.site-header .container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.brand{
+  font-family:var(--serif);
+  font-size:1.2rem;
+  font-weight:500;
+  letter-spacing:.03em;
+}
+.brand em{ font-style:italic; color:var(--gold); }
+.site-header.scrolled .brand em{ color:var(--gold-dim); }
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:clamp(24px,3vw,44px);
+}
+.nav-links a{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  position:relative;
+  padding-bottom:3px;
+  opacity:.75;
+  transition:opacity .35s var(--ease);
+}
+.nav-links a:hover{ opacity:1; }
+.nav-links a::after{
+  content:"";
+  position:absolute; left:0; right:100%; bottom:0;
+  height:1px;
+  background:currentColor;
+  transition:right .4s var(--ease);
+}
+.nav-links a:hover::after{ right:0; }
+
+.nav-toggle{
+  display:none;
+  width:30px; height:20px;
+  position:relative;
+  background:none; border:0; padding:0;
+  z-index:300;
+}
+.nav-toggle span{
+  position:absolute; left:0; right:0; height:1px;
+  background:currentColor;
+  transition:transform .4s var(--ease), opacity .4s var(--ease);
+}
+.nav-toggle span:nth-child(1){ top:1px; }
+.nav-toggle span:nth-child(2){ top:9px; }
+.nav-toggle span:nth-child(3){ top:17px; }
+body.nav-open .nav-toggle span:nth-child(1){ transform:translateY(8px) rotate(45deg); }
+body.nav-open .nav-toggle span:nth-child(2){ opacity:0; }
+body.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-8px) rotate(-45deg); }
+
+@media (max-width:768px){
+  .site-header{ padding:20px 0; }
+  .nav-links{
+    position:fixed; top:0; right:0;
+    width:min(300px,80vw); height:100vh;
+    background:var(--ink); color:var(--ivory);
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:24px;
+    padding:80px 40px;
+    transform:translateX(100%);
+    transition:transform .5s var(--ease);
+    z-index:200;
+    mix-blend-mode:normal;
+  }
+  .nav-overlay{
+    position:fixed; inset:0;
+    background:rgba(26,22,18,.6);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    z-index:140;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s var(--ease);
+  }
+  body.nav-open .nav-overlay{ opacity:1; pointer-events:auto; }
+  body.nav-open .nav-links{ transform:translateX(0); }
+  .nav-links{ backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+  .nav-links a{ font-size:15px; opacity:.8; }
+  .nav-links a:hover{ opacity:1; }
+  .nav-toggle{ display:block; }
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero{
+  position:relative;
+  height:100svh;
+  min-height:600px;
+  overflow:hidden;
+  background:var(--ink);
+}
+.hero-media{
+  position:absolute; inset:0;
+  overflow:hidden;
+}
+.hero-media img{
+  width:100%; height:100%;
+  object-fit:cover;
+  will-change:transform;
+  filter:contrast(1.04) saturate(.92);
+}
+.hero-overlay{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(135deg,
+      rgba(26,22,18,.72) 0%,
+      rgba(26,22,18,.28) 40%,
+      rgba(26,22,18,.12) 60%,
+      rgba(26,22,18,.48) 100%
+    );
+  z-index:1;
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding-bottom:clamp(60px, 8vw, 100px);
+  color:var(--ivory);
+}
+.hero-content .overline{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+  margin-bottom:16px;
+}
+.hero-content h1{
+  font-size:clamp(2.6rem, 7vw, 5.8rem);
+  line-height:1.02;
+  letter-spacing:-.02em;
+  font-weight:400;
+  color:var(--ivory);
+  max-width:14ch;
+}
+.hero-content h1 em{
+  font-style:italic;
+  color:var(--gold-light);
+}
+.hero-content .sub{
+  margin-top:20px;
+  max-width:40ch;
+  font-size:clamp(1rem,1.3vw,1.12rem);
+  line-height:1.7;
+  color:rgba(250,247,243,.7);
+  font-weight:300;
+}
+.hero-scroll{
+  position:absolute;
+  bottom:clamp(24px,4vw,40px);
+  left:50%;
+  transform:translateX(-50%);
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  color:rgba(250,247,243,.55);
+}
+.hero-scroll span{
+  font-size:9px;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+}
+.hero-scroll .line{
+  width:1px; height:40px;
+  background:rgba(250,247,243,.25);
+  position:relative;
+  overflow:hidden;
+}
+.hero-scroll .line::after{
+  content:"";
+  position:absolute; inset:0;
+  background:var(--gold-light);
+  animation:scrollAnim 2.2s var(--ease) infinite;
+}
+@keyframes scrollAnim{
+  0%{ transform:translateY(-100%); }
+  60%{ transform:translateY(100%); }
+  100%{ transform:translateY(100%); }
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-scroll .line::after{ animation:none; }
+}
+
+/* ============================================================
+   Narrative — Storytelling
+   ============================================================ */
+.narrative{
+  position:relative;
+  padding:var(--section-pad) 0;
+  background:var(--ivory);
+}
+.narrative-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(40px,6vw,100px);
+  align-items:center;
+}
+.narrative-media{
+  position:relative;
+  aspect-ratio:3/4;
+  overflow:hidden;
+  border-radius:2px;
+}
+.narrative-media img{
+  width:100%; height:100%;
+  object-fit:cover;
+  will-change:transform;
+  filter:saturate(.9) sepia(.04) contrast(1.02);
+}
+.narrative-media .frame{
+  position:absolute;
+  inset:16px;
+  border:1px solid rgba(250,247,243,.5);
+  pointer-events:none;
+}
+.narrative-copy .num{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--gold-dim);
+  letter-spacing:.06em;
+}
+.narrative-copy h2{
+  margin-top:12px;
+  font-size:clamp(1.6rem,3vw,2.6rem);
+  line-height:1.16;
+  letter-spacing:-.01em;
+}
+.narrative-copy .accent-line{
+  display:block;
+  width:32px; height:2px;
+  margin:20px 0;
+  background:var(--gold);
+}
+.narrative-copy p{
+  color:var(--ink-soft);
+  font-size:1.02rem;
+  line-height:1.8;
+  max-width:48ch;
+}
+.narrative-copy .read-more{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:28px;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--gold-dim);
+  transition:gap .4s var(--ease), color .4s var(--ease);
+}
+.narrative-copy .read-more:hover{ gap:16px; color:var(--gold); }
+.narrative-copy .read-more svg{ width:14px; height:14px; }
+
+@media (max-width:860px){
+  .narrative-grid{ grid-template-columns:1fr; }
+  .narrative-media{ order:-1; aspect-ratio:16/11; }
+}
+
+/* ============================================================
+   Philosophy — Full-bleed parallax panels
+   ============================================================ */
+.philosophy{
+  position:relative;
+}
+.phil-panel{
+  position:relative;
+  height:80vh;
+  min-height:480px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:var(--ink);
+}
+.phil-panel img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  will-change:transform;
+  filter:saturate(.85) contrast(1.06) sepia(.06);
+}
+.phil-panel .shade{
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(26,22,18,.72) 0%, rgba(26,22,18,.24) 50%, rgba(26,22,18,.54) 100%);
+}
+.phil-panel .content{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  color:var(--ivory);
+  max-width:680px;
+  padding:40px var(--gutter);
+}
+.phil-panel .content .num{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--gold-light);
+  letter-spacing:.08em;
+}
+.phil-panel .content h2{
+  margin-top:14px;
+  font-size:clamp(1.8rem,3.6vw,3rem);
+  line-height:1.12;
+  color:var(--ivory);
+  font-weight:400;
+}
+.phil-panel .content .divider{
+  width:40px; height:1px;
+  margin:20px auto;
+  background:var(--gold-light);
+}
+.phil-panel .content p{
+  font-size:1.02rem;
+  line-height:1.8;
+  color:rgba(250,247,243,.75);
+  font-weight:300;
+  max-width:52ch;
+  margin:0 auto;
+}
+
+/* ============================================================
+   Projects
+   ============================================================ */
+.projects{
+  padding:var(--section-pad) 0;
+  background:var(--ivory);
+}
+.projects-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:32px;
+  margin-bottom:clamp(48px,6vw,72px);
+}
+.projects-head .intro{ max-width:480px; }
+.projects-head .intro .label{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--gold-dim);
+}
+.projects-head .intro h2{
+  margin-top:10px;
+  font-size:clamp(1.6rem,3vw,2.6rem);
+  line-height:1.14;
+  letter-spacing:-.01em;
+}
+.projects-head .intro p{
+  margin-top:14px;
+  color:var(--ink-soft);
+  font-size:.98rem;
+  line-height:1.7;
+}
+.project-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(20px,2.4vw,28px);
+}
+.project-card{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:4/3;
+  display:block;
+  background:var(--warm);
+}
+.project-card:first-child{
+  grid-column:span 2;
+  aspect-ratio:16/9;
+}
+.project-card img{
+  width:100%; height:100%;
+  object-fit:cover;
+  will-change:transform;
+  transition:transform 1.2s var(--ease);
+  filter:saturate(.88) sepia(.05) contrast(1.02);
+}
+.project-card:hover img{ transform:scale(1.04); }
+.project-card .card-overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(0deg, rgba(26,22,18,.78) 0%, rgba(26,22,18,.04) 50%, transparent 70%);
+  opacity:0;
+  transition:opacity .6s var(--ease);
+}
+.project-card:hover .card-overlay{ opacity:1; }
+.project-card .card-info{
+  position:absolute; left:0; right:0; bottom:0;
+  padding:clamp(20px,3vw,32px);
+  color:var(--ivory);
+  transform:translateY(12px);
+  opacity:0;
+  transition:transform .6s var(--ease), opacity .6s var(--ease);
+}
+.project-card:hover .card-info{
+  transform:translateY(0);
+  opacity:1;
+}
+.project-card .card-cat{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+}
+.project-card .card-title{
+  margin-top:6px;
+  font-family:var(--serif);
+  font-size:clamp(1.1rem,1.6vw,1.4rem);
+}
+.project-card:first-child .card-title{ font-size:clamp(1.4rem,2.2vw,1.9rem); }
+
+@media (max-width:768px){
+  .project-grid{ grid-template-columns:1fr; }
+  .project-card:first-child{ grid-column:span 1; aspect-ratio:4/3; }
+}
+
+/* ============================================================
+   Process — Sticky storytelling
+   ============================================================ */
+.process{
+  background:var(--ink);
+  color:var(--ivory);
+  padding:var(--section-pad) 0 0;
+}
+.process-head{
+  max-width:560px;
+  padding-bottom:clamp(48px,7vw,80px);
+}
+.process-head .label{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--gold-light);
+}
+.process-head h2{
+  margin-top:12px;
+  color:var(--ivory);
+  font-size:clamp(1.6rem,3.4vw,2.8rem);
+  line-height:1.14;
+  font-weight:400;
+}
+.process-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.process-media{
+  position:relative;
+  height:100vh;
+  min-height:520px;
+  position:sticky;
+  top:0;
+  overflow:hidden;
+}
+.process-media img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0;
+  transform:scale(1.06);
+  transition:opacity 1.2s var(--ease), transform 1.6s var(--ease);
+  filter:saturate(.85) contrast(1.05) sepia(.04);
+}
+.process-media img.active{ opacity:1; transform:scale(1); }
+.process-media::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(0deg, rgba(26,22,18,.6) 0%, rgba(26,22,18,0) 45%);
+}
+.process-media .step-num{
+  position:absolute;
+  left:clamp(20px,3vw,40px);
+  bottom:clamp(20px,3vw,40px);
+  z-index:2;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(3rem,8vw,6rem);
+  color:rgba(250,247,243,.8);
+  line-height:1;
+}
+.process-steps{
+  display:flex;
+  flex-direction:column;
+}
+.process-step{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:60px clamp(28px,5vw,72px) 60px clamp(28px,5vw,56px);
+  opacity:.28;
+  transition:opacity .6s var(--ease);
+  border-bottom:1px solid rgba(250,247,243,.08);
+}
+.process-step:last-child{ border-bottom:0; }
+.process-step.active{ opacity:1; }
+.process-step .tag{
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+}
+.process-step h3{
+  margin-top:16px;
+  color:var(--ivory);
+  font-size:clamp(1.3rem,2.4vw,2rem);
+  font-weight:400;
+  line-height:1.24;
+  max-width:16ch;
+}
+.process-step p{
+  margin-top:16px;
+  max-width:42ch;
+  color:rgba(250,247,243,.6);
+  font-size:.98rem;
+  line-height:1.8;
+  font-weight:300;
+}
+.process-step .progress{
+  margin-top:24px;
+  display:flex;
+  gap:6px;
+}
+.process-step .progress .bar{
+  width:32px; height:2px;
+  background:rgba(250,247,243,.15);
+  overflow:hidden;
+  position:relative;
+}
+.process-step .progress .bar.done::after{
+  content:"";
+  position:absolute; inset:0;
+  background:var(--gold-light);
+}
+
+@media (max-width:860px){
+  .process-grid{ grid-template-columns:1fr; }
+  .process-media{ height:48vh; min-height:300px; }
+  .process-step{ min-height:auto; padding:48px clamp(20px,5vw,36px); opacity:1; }
+}
+
+/* ============================================================
+   Testimonials
+   ============================================================ */
+.testimonials{
+  padding:var(--section-pad) 0;
+  background:
+    radial-gradient(circle at top left, rgba(196,149,106,.12), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(255,255,255,.55), transparent 38%),
+    var(--cream-alt);
+  position:relative;
+  overflow:hidden;
+}
+.testimonials::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,252,246,.28), transparent 28%, transparent 72%, rgba(255,252,246,.18));
+  pointer-events:none;
+}
+.testi-intro{
+  text-align:center;
+  margin-bottom:clamp(40px,5vw,60px);
+  position:relative;
+  z-index:1;
+}
+.testi-intro .label{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--gold-dim);
+}
+.testi-intro h2{
+  margin-top:10px;
+  font-size:clamp(1.5rem,2.8vw,2.4rem);
+  letter-spacing:-.01em;
+}
+.testi-carousel{
+  position:relative;
+  z-index:1;
+}
+.testi-controls{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-bottom:14px;
+}
+.testi-nav{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:1px solid rgba(196,149,106,.18);
+  background:rgba(255,252,246,.68);
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  box-shadow:0 10px 24px rgba(44,28,16,.08);
+  backdrop-filter:blur(12px);
+  transition:transform .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease), color .35s var(--ease);
+}
+.testi-nav svg{
+  width:18px;
+  height:18px;
+}
+.testi-nav:hover,
+.testi-nav:focus-visible{
+  transform:translateY(-2px);
+  border-color:rgba(196,149,106,.42);
+  background:rgba(255,252,246,.92);
+  box-shadow:0 18px 34px rgba(44,28,16,.12);
+  color:var(--gold-light);
+}
+.testi-viewport{
+  overflow:hidden;
+  outline:none;
+  padding:clamp(10px,1vw,14px) 0;
+  touch-action:pan-y;
+}
+.testi-track{
+  display:flex;
+  align-items:stretch;
+  gap:clamp(16px,2vw,24px);
+  will-change:transform;
+}
+.testi-card{
+  flex:0 0 min(76vw, 760px);
+  position:relative;
+  padding:clamp(28px,3.5vw,44px);
+  border-radius:28px;
+  border:1px solid rgba(196,149,106,.16);
+  background:
+    linear-gradient(145deg, rgba(255,252,246,.9), rgba(242,229,214,.62)),
+    var(--ivory);
+  box-shadow:0 26px 90px rgba(44,28,16,.12);
+  backdrop-filter:blur(14px);
+  overflow:hidden;
+  opacity:.42;
+  transform:scale(.92);
+  transition:transform 900ms cubic-bezier(.22,1,.36,1), opacity 900ms cubic-bezier(.22,1,.36,1), box-shadow .45s var(--ease), border-color .45s var(--ease);
+}
+.testi-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at top right, rgba(196,149,106,.18), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.28), transparent 34%, rgba(196,149,106,.06));
+  pointer-events:none;
+}
+.testi-card::after{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:27px;
+  border:1px solid rgba(255,255,255,.42);
+  pointer-events:none;
+}
+.testi-card.is-active{
+  opacity:1;
+  transform:scale(1);
+  border-color:rgba(196,149,106,.38);
+  box-shadow:0 34px 110px rgba(44,28,16,.16);
+}
+.testi-card.is-prev,
+.testi-card.is-next{
+  opacity:.68;
+  transform:scale(.95);
+}
+.testi-card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 34px 110px rgba(44,28,16,.18);
+  border-color:rgba(196,149,106,.34);
+}
+.testi-card-mark{
+  position:absolute;
+  top:18px;
+  right:26px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:5rem;
+  line-height:1;
+  color:rgba(196,149,106,.26);
+  opacity:.72;
+  transition:opacity .4s var(--ease), transform .4s var(--ease);
+  z-index:1;
+}
+.testi-card:hover .testi-card-mark,
+.testi-card.is-active .testi-card-mark{
+  opacity:1;
+  transform:translateY(-2px);
+}
+.testi-card-head{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding-right:72px;
+}
+.testi-avatar{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  object-fit:cover;
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:0 14px 28px rgba(44,28,16,.16);
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+  flex:0 0 auto;
+}
+.testi-card:hover .testi-avatar,
+.testi-card.is-active .testi-avatar{
+  transform:scale(1.04);
+}
+.testi-meta strong{
+  display:block;
+  font-family:var(--serif);
+  font-size:clamp(1.08rem,1.5vw,1.24rem);
+  font-weight:500;
+}
+.testi-meta span{
+  display:block;
+  margin-top:3px;
+  color:var(--ink-dim);
+  font-size:.84rem;
+  letter-spacing:.02em;
+}
+.testi-divider{
+  position:relative;
+  z-index:1;
+  height:1px;
+  margin:20px 0 18px;
+  background:linear-gradient(90deg, transparent, rgba(196,149,106,.68), transparent);
+  transform:scaleX(.28);
+  transform-origin:left;
+  transition:transform .65s cubic-bezier(.22,1,.36,1);
+}
+.testi-card.is-active .testi-divider,
+.testi-card:hover .testi-divider{
+  transform:scaleX(1);
+}
+.testi-card blockquote{
+  position:relative;
+  z-index:1;
+  margin:0;
+  font-size:clamp(1rem,1.2vw,1.08rem);
+  line-height:1.8;
+  color:var(--ink-soft);
+  font-style:normal;
+}
+.testi-dots{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-top:20px;
+}
+.testi-dot{
+  width:10px;
+  height:10px;
+  border:0;
+  border-radius:999px;
+  background:rgba(44,28,16,.18);
+  transition:transform .35s var(--ease), width .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease);
+  box-shadow:none;
+}
+.testi-dot:hover,
+.testi-dot:focus-visible{
+  transform:translateY(-1px);
+  background:rgba(196,149,106,.5);
+}
+.testi-dot.is-active{
+  width:30px;
+  background:linear-gradient(90deg, var(--gold-light), var(--gold-dim));
+  box-shadow:0 0 0 4px rgba(196,149,106,.12);
+}
+.testi-hint{
+  margin-top:14px;
+  text-align:center;
+  font-size:.82rem;
+  color:var(--ink-dim);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+@media (max-width:860px){
+  .testi-controls{ justify-content:center; }
+  .testi-card{ flex-basis:min(84vw, 640px); }
+}
+@media (max-width:520px){
+  .testi-card{
+    flex-basis:88vw;
+    padding:24px 20px 22px;
+    border-radius:24px;
+  }
+  .testi-card-head{
+    gap:12px;
+    padding-right:52px;
+  }
+  .testi-avatar{ width:58px; height:58px; }
+  .testi-card-mark{ font-size:4rem; top:12px; right:18px; }
+  .testi-track{ gap:14px; }
+  .testi-hint{ font-size:.75rem; }
+}
+
+/* ============================================================
+   Contact
+   ============================================================ */
+.contact{
+  position:relative;
+  padding:var(--section-pad) 0;
+  background:var(--ink);
+  color:var(--ivory);
+  overflow:hidden;
+}
+.contact-bg-img{
+  position:absolute; inset:0;
+  overflow:hidden;
+}
+.contact-bg-img img{
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:.18;
+  filter:saturate(.7) contrast(1.08);
+}
+.contact-bg-img::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(26,22,18,.92) 0%, rgba(26,22,18,.72) 100%);
+}
+.contact .container{
+  position:relative;
+  z-index:1;
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(40px,6vw,80px);
+  align-items:start;
+}
+.contact-copy .label{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--gold-light);
+}
+.contact-copy h2{
+  margin-top:12px;
+  color:var(--ivory);
+  font-size:clamp(1.6rem,3.4vw,2.8rem);
+  line-height:1.12;
+  font-weight:400;
+}
+.contact-copy p{
+  margin-top:18px;
+  color:rgba(250,247,243,.65);
+  font-size:1rem;
+  line-height:1.75;
+  max-width:40ch;
+}
+.contact-details{
+  margin-top:32px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.contact-details .detail{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+}
+.contact-details .detail .icon{
+  width:36px; height:36px;
+  flex:none;
+  border:1px solid rgba(250,247,243,.2);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold-light);
+  transition:border-color .4s var(--ease), background .4s var(--ease);
+}
+.contact-details .detail:hover .icon{
+  border-color:var(--gold);
+  background:rgba(196,149,106,.1);
+}
+.contact-details .detail .icon svg{ width:14px; height:14px; }
+.contact-details .detail .text strong{
+  display:block;
+  font-size:.85rem;
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:rgba(250,247,243,.6);
+}
+.contact-details .detail .text span,
+.contact-details .detail .text a{
+  display:block;
+  margin-top:4px;
+  font-size:.95rem;
+  color:rgba(250,247,243,.85);
+  transition:color .3s var(--ease);
+}
+.contact-details .detail .text a:hover{ color:var(--gold-light); }
+
+.contact-form{
+  background:rgba(250,247,243,.04);
+  border:1px solid rgba(250,247,243,.12);
+  padding:clamp(28px,3.2vw,40px);
+}
+.contact-form .field{ margin-bottom:18px; }
+.contact-form label{
+  display:block;
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(250,247,243,.5);
+  margin-bottom:8px;
+}
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  background:transparent;
+  border:0;
+  border-bottom:1px solid rgba(250,247,243,.18);
+  padding:10px 2px;
+  color:var(--ivory);
+  font-family:var(--sans);
+  font-size:.95rem;
+  transition:border-color .35s var(--ease);
+}
+.contact-form input:focus,
+.contact-form textarea:focus{
+  outline:none;
+  border-color:var(--gold);
+}
+.contact-form textarea{ resize:vertical; min-height:80px; }
+.contact-form .btn-submit{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 36px;
+  margin-top:8px;
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink);
+  background:var(--gold);
+  border:1px solid var(--gold);
+  transition:background .4s var(--ease), color .4s var(--ease), gap .4s var(--ease);
+}
+.contact-form .btn-submit:hover{
+  background:transparent;
+  color:var(--gold-light);
+  gap:16px;
+}
+.contact-form .btn-submit svg{ width:14px; height:14px; }
+.contact-form .form-success{
+  display:none;
+  text-align:center;
+  padding:32px 10px;
+}
+.contact-form .form-success .check{
+  width:48px; height:48px;
+  margin:0 auto 16px;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold);
+}
+.contact-form .form-success h3{
+  color:var(--ivory);
+  font-size:1.2rem;
+}
+.contact-form .form-success p{
+  margin-top:8px;
+  color:rgba(250,247,243,.55);
+  font-size:.9rem;
+}
+.contact-form.sent form .form-body{ display:none; }
+.contact-form.sent form .form-success{ display:block; }
+
+@media (max-width:860px){
+  .contact-grid{ grid-template-columns:1fr; }
+  .contact-copy{ order:1; }
+  .contact-form{ order:0; }
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer{
+  background:var(--ink);
+  border-top:1px solid rgba(250,247,243,.08);
+  padding:clamp(48px,6vw,72px) 0 28px;
+  color:rgba(250,247,243,.7);
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr;
+  gap:clamp(32px,5vw,56px);
+  padding-bottom:clamp(32px,4vw,48px);
+}
+.footer-brand .brand{ color:var(--ivory); font-size:1.3rem; }
+.footer-brand p{
+  margin-top:14px;
+  font-size:.9rem;
+  line-height:1.7;
+  max-width:32ch;
+}
+.footer-social{
+  display:flex; gap:12px;
+  margin-top:20px;
+}
+.footer-social a{
+  width:36px; height:36px;
+  border:1px solid rgba(250,247,243,.15);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(250,247,243,.6);
+  transition:all .35s var(--ease);
+}
+.footer-social a:hover{
+  border-color:var(--gold);
+  color:var(--gold-light);
+  transform:translateY(-2px);
+}
+.footer-social svg{ width:13px; height:13px; }
+.footer-col h4{
+  font-family:var(--sans);
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(250,247,243,.45);
+}
+.footer-col ul{ margin-top:16px; display:flex; flex-direction:column; gap:10px; }
+.footer-col a{
+  color:rgba(250,247,243,.7);
+  font-size:.9rem;
+  transition:color .3s var(--ease);
+}
+.footer-col a:hover{ color:var(--gold-light); }
+.footer-bottom{
+  padding-top:24px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 24px;
+  justify-content:space-between;
+  font-size:.8rem;
+  border-top:1px solid rgba(250,247,243,.08);
+}
+
+@media (max-width:768px){
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:520px){
+  .footer-grid{ grid-template-columns:1fr; }
+}
+
+/* ============================================================
+   Utility
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  [data-reveal]{ opacity:1; transform:none !important; }
+  .hero-media img{ transform:none !important; }
+  .phil-panel img{ transform:none !important; }
+}
+
+/* ================= TARGETED CONVERSION UPGRADES ================= */
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;letter-spacing:-.035em}
+.hero-content h1{font-weight:800;max-width:15ch;line-height:1.04}
+.hero-content .sub{font-weight:400;color:rgba(250,247,243,.84);max-width:54ch}
+.narrative-copy h2,.projects-head .intro h2,.process-head h2,.contact-copy h2,
+.testi-intro h2,.phil-panel .content h2{font-weight:750;letter-spacing:-.04em}
+.narrative-copy p,.phil-panel .content p,.process-step p,.contact-copy p{font-weight:400}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:30px}
+.hero-btn{min-height:54px;padding:0 25px;display:inline-flex;align-items:center;justify-content:center;gap:12px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease)}
+.hero-btn:hover{transform:translateY(-3px)}
+.hero-btn-primary{background:var(--gold);color:var(--ink);border:1px solid var(--gold)}
+.hero-btn-primary:hover{background:var(--ivory);border-color:var(--ivory)}
+.hero-btn-secondary{color:var(--ivory);border:1px solid rgba(250,247,243,.58);background:rgba(26,22,18,.18)}
+.hero-btn-secondary:hover{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.hero-btn svg{width:15px;height:15px}
+.section-kicker{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim)}
+.services{padding:clamp(80px,9vw,130px) 0;background:var(--cream)}
+.services-head{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:end;margin-bottom:48px}
+.services-head h2{font-size:clamp(2rem,4vw,3.35rem);line-height:1.08;margin-top:12px;max-width:13ch}
+.services-head p{color:var(--ink-soft);max-width:52ch;line-height:1.8}
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(26,22,18,.16);border-left:1px solid rgba(26,22,18,.16)}
+.service-item{min-height:245px;padding:30px 28px;border-right:1px solid rgba(26,22,18,.16);border-bottom:1px solid rgba(26,22,18,.16);transition:background .35s var(--ease)}
+.service-item:hover{background:var(--ivory)}
+.service-index{font-family:var(--serif);font-size:14px;color:var(--gold-dim);font-weight:700}
+.service-item h3{font-size:1.22rem;line-height:1.2;margin:24px 0 12px;font-weight:750}
+.service-item p{font-size:.94rem;line-height:1.75;color:var(--ink-soft)}
+.service-link{display:inline-flex;margin-top:20px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim)}
+.scope-band{padding:clamp(54px,7vw,90px) 0;background:var(--warm-bg)}
+.scope-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}
+.scope-layout h2{font-size:clamp(1.9rem,3.5vw,2.8rem);line-height:1.1;margin-top:12px}
+.scope-layout>div:first-child p{margin-top:18px;color:var(--ink-soft);line-height:1.8}
+.scope-list{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.scope-list li{padding:17px 0;border-bottom:1px solid rgba(26,22,18,.16);display:flex;gap:12px;align-items:flex-start;font-weight:600;font-size:.95rem}
+.scope-list li:before{content:"↗";color:var(--gold-dim);font-weight:700}
+.consult-strip{padding:34px 0;background:var(--gold);color:var(--ink)}
+.consult-strip .container{display:flex;justify-content:space-between;align-items:center;gap:24px}
+.consult-strip h2{font-size:clamp(1.25rem,2.5vw,2rem);font-weight:800;line-height:1.15}
+.consult-strip p{font-size:.92rem;margin-top:6px;color:rgba(26,22,18,.76)}
+.consult-strip a{flex:none;padding:15px 22px;border:1px solid var(--ink);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;transition:all .3s}
+.consult-strip a:hover{background:var(--ink);color:var(--ivory)}
+.faq{padding:var(--section-pad) 0;background:var(--ivory)}
+.faq-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}
+.faq-intro h2{font-size:clamp(2rem,3.5vw,2.9rem);line-height:1.1;margin-top:12px}
+.faq-intro p{margin-top:18px;color:var(--ink-soft);line-height:1.8}
+.faq-list{border-top:1px solid rgba(26,22,18,.18)}
+.faq-item{border-bottom:1px solid rgba(26,22,18,.18)}
+.faq-question{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;text-align:left;padding:22px 0;font-weight:700;font-size:1rem}
+.faq-question span:last-child{font-size:22px;color:var(--gold-dim);transition:transform .3s}
+.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease)}
+.faq-answer>div{overflow:hidden}
+.faq-answer p{padding:0 40px 20px 0;color:var(--ink-soft);font-size:.94rem;line-height:1.8}
+.faq-item.open .faq-answer{grid-template-rows:1fr}
+.faq-item.open .faq-question span:last-child{transform:rotate(45deg)}
+.whatsapp-float{position:fixed;right:24px;bottom:24px;z-index:500;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;box-shadow:0 12px 34px rgba(0,0,0,.22);transition:transform .3s,box-shadow .3s}
+.whatsapp-float:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 16px 40px rgba(0,0,0,.28)}
+.whatsapp-float svg{width:29px;height:29px;fill:currentColor}
+.whatsapp-float:after{content:"Chat with us";position:absolute;right:70px;white-space:nowrap;background:var(--ink);color:var(--ivory);padding:8px 12px;font-size:11px;font-weight:600;letter-spacing:.03em;opacity:0;transform:translateX(6px);pointer-events:none;transition:.25s}
+.whatsapp-float:hover:after{opacity:1;transform:translateX(0)}
+.contact-form .form-note{font-size:.78rem;color:rgba(250,247,243,.48);line-height:1.6;margin-top:14px}
+.contact-form select{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(250,247,243,.18);padding:10px 2px;color:var(--ivory);font-family:var(--sans);font-size:.95rem}
+.contact-form select option{color:var(--ink)}
+@media(max-width:860px){
+ .services-head,.scope-layout,.faq-layout{grid-template-columns:1fr;gap:24px}
+ .service-grid{grid-template-columns:1fr 1fr}
+ .scope-list{gap:0 22px}
+}
+@media(max-width:600px){
+ .hero-actions{gap:10px;margin-top:24px}
+ .hero-btn{min-height:50px;padding:0 17px;font-size:10px}
+ .service-grid{grid-template-columns:1fr}
+ .service-item{min-height:0;padding:25px 22px}
+ .scope-list{grid-template-columns:1fr}
+ .consult-strip .container{align-items:flex-start;flex-direction:column}
+ .consult-strip a{width:100%;text-align:center}
+ .whatsapp-float{right:16px;bottom:16px;width:54px;height:54px}
+}
+
+
+/* ================= DESIGN FEATHER INTERIOR — RULE-BASED CHAT ASSISTANT ================= */
+#dga-chat-root{--dga-ink:#1A1612;--dga-cream:#FAF7F3;--dga-gold:#C4956A;--dga-gold-light:#D8B894;--dga-muted:#887e73;--dga-line:rgba(26,22,18,.1);font-family:var(--sans,"DM Sans",sans-serif);color:var(--dga-ink);position:relative;z-index:1000}
+#dga-chat-launcher{position:fixed;right:26px;bottom:98px;z-index:1001;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;gap:0;background:var(--dga-ink);color:var(--dga-cream);border:1px solid rgba(216,184,148,.65);box-shadow:0 14px 38px rgba(26,22,18,.25);transition:transform .35s cubic-bezier(.16,.84,.32,1),background .3s;cursor:pointer}
+#dga-chat-launcher:hover{transform:translateY(-4px);background:#34291f}
+#dga-chat-launcher svg{width:25px;height:25px}
+#dga-chat-launcher .dga-launch-dot{position:absolute;right:2px;top:2px;width:13px;height:13px;border:2px solid var(--dga-cream);background:#6e9b75;border-radius:50%}
+#dga-chat-panel{position:fixed;right:26px;bottom:174px;z-index:1002;width:min(410px,calc(100vw - 36px));height:min(650px,calc(100dvh - 205px));min-height:440px;background:var(--dga-cream);border:1px solid rgba(196,149,106,.35);border-radius:18px;box-shadow:0 28px 90px rgba(26,22,18,.25);display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(18px) scale(.975);transform-origin:bottom right;transition:opacity .28s ease,transform .35s cubic-bezier(.16,.84,.32,1),visibility .28s}
+#dga-chat-panel.dga-open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.dga-chat-head{flex:none;display:flex;align-items:center;gap:12px;padding:17px 18px;background:var(--dga-ink);color:var(--dga-cream);border-bottom:1px solid rgba(216,184,148,.25)}
+.dga-chat-avatar{width:42px;height:42px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#d8b894,#98704e);color:#201810;font-family:var(--serif);font-weight:800;font-size:13px;letter-spacing:.04em;border:1px solid rgba(255,255,255,.28)}
+.dga-chat-brand{min-width:0;flex:1}
+.dga-chat-brand strong{display:block;font-family:var(--serif);font-size:15px;letter-spacing:.01em;font-weight:700}
+.dga-chat-brand span{display:flex;align-items:center;gap:6px;margin-top:3px;color:rgba(250,247,243,.62);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+.dga-online{width:6px;height:6px;border-radius:50%;background:#83b58a;box-shadow:0 0 0 3px rgba(131,181,138,.12)}
+.dga-head-actions{display:flex;align-items:center;gap:5px}
+.dga-head-actions button{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:rgba(250,247,243,.75);transition:background .2s,color .2s}
+.dga-head-actions button:hover{background:rgba(255,255,255,.1);color:#fff}
+.dga-head-actions svg{width:15px;height:15px}
+.dga-chat-messages{flex:1;min-height:0;overflow-y:auto;padding:18px 15px 12px;scroll-behavior:smooth;background:linear-gradient(180deg,#fbf8f4,#f7f1ea)}
+.dga-message-row{display:flex;margin:0 0 13px;align-items:flex-end;gap:7px;animation:dga-message-in .24s ease both}
+.dga-message-row.dga-user{justify-content:flex-end}
+.dga-mini-avatar{width:23px;height:23px;flex:none;border-radius:50%;display:grid;place-items:center;background:#e7d6c4;color:#705238;font-size:8px;font-weight:800}
+.dga-bubble-wrap{max-width:83%;min-width:0}
+.dga-bubble{padding:11px 13px;border-radius:13px 13px 13px 3px;background:#fff;color:#3b332c;border:1px solid rgba(26,22,18,.055);font-size:13px;line-height:1.6;overflow-wrap:anywhere;box-shadow:0 3px 10px rgba(44,28,16,.035);white-space:pre-wrap}
+.dga-user .dga-bubble{background:var(--dga-ink);color:#fff;border-color:var(--dga-ink);border-radius:13px 13px 3px 13px}
+.dga-time{display:block;margin:4px 3px 0;color:#a1988e;font-size:9px;letter-spacing:.02em}
+.dga-user .dga-time{text-align:right}
+.dga-quick-replies{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px 30px;animation:dga-message-in .24s ease both}
+.dga-quick-replies button{border:1px solid rgba(166,123,85,.45);border-radius:30px;padding:8px 11px;background:rgba(255,255,255,.72);color:#6d4e34;font-size:11px;line-height:1.2;transition:background .2s,border-color .2s,transform .2s}
+.dga-quick-replies button:hover{background:#efe2d4;border-color:var(--dga-gold);transform:translateY(-1px)}
+.dga-typing{display:flex;align-items:center;gap:4px;padding:12px 14px;width:max-content;background:#fff;border:1px solid var(--dga-line);border-radius:13px 13px 13px 3px;margin:0 0 14px 30px}
+.dga-typing i{width:5px;height:5px;background:#ad9a87;border-radius:50%;animation:dga-typing 1s infinite ease-in-out}
+.dga-typing i:nth-child(2){animation-delay:.15s}.dga-typing i:nth-child(3){animation-delay:.3s}
+.dga-chat-composer{flex:none;padding:11px 13px 12px;background:#fff;border-top:1px solid var(--dga-line)}
+.dga-input-row{display:flex;align-items:center;gap:8px;border:1px solid rgba(26,22,18,.13);border-radius:12px;padding:5px 5px 5px 12px;background:#fff;transition:border-color .2s,box-shadow .2s}
+.dga-input-row:focus-within{border-color:var(--dga-gold);box-shadow:0 0 0 3px rgba(196,149,106,.12)}
+#dga-chat-input{flex:1;min-width:0;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;color:var(--dga-ink)!important;font:400 13px var(--sans,"DM Sans",sans-serif)!important;padding:8px 0!important;margin:0!important}
+#dga-chat-input::placeholder{color:#aaa096}
+#dga-chat-send{width:36px;height:36px;flex:none;border-radius:9px;display:grid;place-items:center;background:var(--dga-ink);color:#fff;transition:background .2s,transform .2s}
+#dga-chat-send:hover{background:#6e4e34;transform:translateY(-1px)}
+#dga-chat-send svg{width:16px;height:16px}
+.dga-composer-note{display:flex;justify-content:space-between;gap:8px;margin:8px 2px 0;color:#a39a90;font-size:9px;letter-spacing:.035em}
+.dga-summary{background:#fff;border:1px solid rgba(196,149,106,.3);border-radius:12px;padding:12px;margin:0 0 14px 30px;font-size:11px;line-height:1.55}
+.dga-summary h4{font-family:var(--serif);font-size:14px;font-weight:700;margin:0 0 8px;color:var(--dga-ink)}
+.dga-summary dl{display:grid;grid-template-columns:95px 1fr;gap:5px 8px;margin:0}
+.dga-summary dt{color:#918477}.dga-summary dd{margin:0;color:#342b23;overflow-wrap:anywhere}
+.dga-summary-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.dga-summary-actions button{border-radius:20px;padding:8px 10px;font-size:10px;font-weight:700;background:var(--dga-ink);color:#fff}
+.dga-summary-actions button.secondary{background:#f2e8dd;color:#6b4c32;border:1px solid #e1cbb5}
+.dga-summary-actions button:disabled{opacity:.45;cursor:not-allowed}
+@keyframes dga-message-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dga-typing{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-4px);opacity:1}}
+@media(max-width:600px){
+ #dga-chat-launcher{right:17px;bottom:88px;width:58px;height:58px}
+ #dga-chat-panel{inset:0;width:100%;height:100dvh;min-height:0;max-height:none;border:0;border-radius:0;transform:translateY(14px);transform-origin:center}
+ #dga-chat-panel.dga-open{transform:translateY(0)}
+ .dga-chat-head{padding:calc(13px + env(safe-area-inset-top)) 16px 13px}
+ .dga-chat-messages{padding:16px 13px calc(12px + env(safe-area-inset-bottom))}
+ .dga-chat-composer{padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+ .dga-bubble-wrap{max-width:88%}
+}
+@media(prefers-reduced-motion:reduce){#dga-chat-panel,.dga-message-row,.dga-quick-replies,.dga-typing i{animation:none!important;transition:none!important}}
+
+
+/* ================= DESIGN FEATHER INTERIOR — INTERACTIVE DESIGN ESTIMATOR ================= */
+.dga-estimator{position:relative;padding:clamp(76px,9vw,132px) 0;background:#211c17;color:#f8f3ed;overflow:hidden}
+.dga-estimator:before{content:"";position:absolute;width:620px;height:620px;right:-250px;top:-260px;border-radius:50%;background:radial-gradient(circle,rgba(196,149,106,.16),transparent 68%);pointer-events:none}
+.dga-estimator .container{position:relative;z-index:1}
+.dga-estimator-head{max-width:760px;margin:0 auto 46px;text-align:center}
+.dga-estimator-head .section-kicker{color:#cda77f}
+.dga-estimator-head h2{color:#fbf7f1;margin:12px 0 14px}
+.dga-estimator-head p{max-width:590px;margin:0 auto;color:rgba(250,247,243,.66);font-size:14px;line-height:1.8}
+.dga-estimator-shell{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.8fr);max-width:1060px;margin:auto;border:1px solid rgba(216,184,148,.2);border-radius:22px;overflow:hidden;background:rgba(255,255,255,.035);box-shadow:0 30px 90px rgba(0,0,0,.2)}
+.dga-estimator-form{padding:clamp(24px,4vw,44px)}
+.dga-est-step{display:flex;align-items:center;gap:10px;margin:0 0 12px;color:#cda77f;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.dga-est-step:before{content:"";width:22px;height:1px;background:#cda77f}
+.dga-est-field{margin-bottom:27px}
+.dga-est-field label{display:block;margin-bottom:10px;color:#f8f3ed;font-size:13px;font-weight:600;letter-spacing:.01em}
+.dga-est-field small{display:block;margin-top:7px;color:rgba(250,247,243,.45);font-size:10px;line-height:1.5}
+.dga-est-select,.dga-est-number{width:100%;height:52px;padding:0 15px;border:1px solid rgba(250,247,243,.18);border-radius:9px;background:#2b241e;color:#fbf7f1;font:400 13px var(--sans,"DM Sans",sans-serif);outline:none;transition:border-color .2s,box-shadow .2s}
+.dga-est-select:focus,.dga-est-number:focus{border-color:#c4956a;box-shadow:0 0 0 3px rgba(196,149,106,.13)}
+.dga-est-select option{background:#2b241e;color:#fff}
+.dga-est-sft-wrap{position:relative}
+.dga-est-sft-wrap .dga-est-number{padding-right:66px}
+.dga-est-sft-unit{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:#cda77f;font-size:11px;pointer-events:none}
+.dga-est-budget-note{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.dga-est-budget-note span{border:1px solid rgba(216,184,148,.18);border-radius:30px;padding:6px 9px;color:rgba(250,247,243,.58);font-size:9px}
+.dga-est-result{display:flex;flex-direction:column;justify-content:space-between;padding:clamp(26px,4vw,42px);background:linear-gradient(155deg,#eee4d8,#e5d5c4);color:#211c17;min-height:100%}
+.dga-est-result-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px}
+.dga-est-result-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#84684e}
+.dga-est-live{display:inline-flex;align-items:center;gap:6px;color:#58735b;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.dga-est-live:before{content:"";width:6px;height:6px;border-radius:50%;background:#719675;box-shadow:0 0 0 4px rgba(113,150,117,.12)}
+.dga-est-plan{font-family:var(--serif);font-size:clamp(30px,4vw,43px);line-height:1.08;letter-spacing:-.035em;margin:0 0 8px;color:#211c17}
+.dga-est-plan-desc{margin:0 0 25px;color:#776555;font-size:12px;line-height:1.65}
+.dga-est-amount-label{display:block;margin-bottom:6px;color:#826a55;font-size:10px;letter-spacing:.13em;text-transform:uppercase}
+.dga-est-amount{font-family:var(--serif);font-size:clamp(34px,4.5vw,52px);line-height:1.1;letter-spacing:-.04em;color:#211c17;overflow-wrap:anywhere}
+.dga-est-rate{margin-top:7px;color:#806d5b;font-size:11px}
+.dga-est-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:26px 0 22px;padding:17px 0;border-top:1px solid rgba(33,28,23,.14);border-bottom:1px solid rgba(33,28,23,.14)}
+.dga-est-breakdown span{display:block;color:#8a7663;font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.dga-est-breakdown strong{font-size:13px;font-weight:600;color:#33271e}
+.dga-est-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:15px 17px;border:0;border-radius:7px;background:#211c17;color:#fbf7f1;text-decoration:none;font-size:11px;letter-spacing:.07em;text-transform:uppercase;transition:background .25s,transform .25s}
+.dga-est-cta:hover{background:#6c5038;transform:translateY(-2px)}
+.dga-est-cta svg{width:16px;height:16px;flex:none}
+.dga-est-disclaimer{margin:14px 0 0;color:#8b7968;font-size:9px;line-height:1.65}
+.dga-est-warning{display:none;margin:16px 0 0;padding:12px 13px;border:1px solid rgba(156,95,63,.25);border-radius:8px;background:rgba(255,255,255,.4);color:#80533d;font-size:11px;line-height:1.55}
+.dga-est-warning.is-visible{display:block}
+@media(max-width:760px){.dga-estimator-shell{grid-template-columns:1fr}.dga-est-result{min-height:0}.dga-estimator-head{margin-bottom:30px}}
+@media(max-width:480px){.dga-estimator{padding:72px 0}.dga-estimator-form{padding:23px 19px}.dga-est-result{padding:25px 20px}.dga-est-breakdown{margin:21px 0 18px}}
+
+
+/* Estimator v2 — total-project budget planning */
+.dga-est-recommend-tag{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;padding:6px 9px;border-radius:30px;background:rgba(91,119,91,.12);color:#58735b;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.dga-est-recommend-tag:before{content:"";width:6px;height:6px;border-radius:50%;background:#719675}
+.dga-est-budget-meter{height:5px;border-radius:10px;background:rgba(33,28,23,.13);overflow:hidden;margin-top:20px}
+.dga-est-budget-meter span{display:block;width:0;height:100%;border-radius:10px;background:#8b7355;transition:width .35s ease}
+.dga-est-meter-caption{margin-top:7px;color:#806d5b;font-size:10px;line-height:1.5}
+.dga-est-design-fee{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;margin-top:17px;padding:13px 14px;border:1px solid rgba(33,28,23,.13);border-radius:9px;background:rgba(255,255,255,.28)}
+.dga-est-design-fee span{color:#806d5b;font-size:9px;letter-spacing:.09em;text-transform:uppercase}
+.dga-est-design-fee strong{color:#33271e;font-size:13px}
+.dga-est-design-fee small{grid-column:1/-1;color:#8b7968;font-size:9px;line-height:1.55}
+.dga-est-result{min-width:0}
+.dga-est-amount{font-size:clamp(28px,3.4vw,43px)}
+.dga-est-warning{white-space:normal}
+@media(max-width:480px){.dga-est-design-fee{grid-template-columns:1fr}.dga-est-design-fee strong{font-size:15px}}
+
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a href="#main" class="brand">Design Feather <em>Interior</em></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#story">Studio</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero" aria-label="Introduction">
+  <div class="hero-media" id="heroMedia">
+    <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=2400&auto=format&fit=crop"
+         alt="An elegant, sunlit living room with vaulted ceiling, linen sofas and warm wooden floors"
+         loading="eager">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <p class="overline" data-reveal="fade">Interior Architecture Studio</p>
+    <h1 data-reveal>Spaces that <em>feel</em> like they've always belonged.</h1>
+    <p class="sub" data-reveal data-reveal-delay="1">We design thoughtful residential and commercial interiors — bringing together spatial planning, material selection, lighting and detailed execution to make every space work beautifully.</p>
+    <div class="hero-actions" data-reveal data-reveal-delay="2"><a class="hero-btn hero-btn-primary" href="#projects">Explore Projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="hero-btn hero-btn-secondary" href="#contact">Contact Us</a></div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ================= NARRATIVE ================= -->
+<section class="narrative" id="story" aria-label="Our story">
+  <div class="container">
+    <div class="narrative-grid">
+      <div class="narrative-media" data-reveal>
+        <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=1400&auto=format&fit=crop"
+             alt="A carefully composed corner of a room with natural light falling on textured plaster walls"
+             loading="lazy">
+        <div class="frame" aria-hidden="true"></div>
+      </div>
+      <div class="narrative-copy">
+        <span class="num" data-reveal>01 — The Beginning</span>
+        <h2 data-reveal data-reveal-delay="1">Every room has a story. We help you tell yours.</h2>
+        <span class="accent-line" data-reveal></span>
+        <p data-reveal>We believe the spaces we inhabit shape how we think, feel, and connect. We work with homeowners, property developers and business owners to create interiors that balance thoughtful design with the practical needs of everyday life.</p>
+        <p data-reveal data-reveal-delay="1">Our process starts with understanding your goals, space, lifestyle and budget. From the first layout to the final finishes, every decision is made to improve how the space looks, feels and functions — without losing sight of the details that make it yours.</p>
+        <a href="#projects" class="read-more" data-reveal>Explore our work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SERVICES ================= -->
+<section class="services" id="services" aria-label="Interior design services">
+  <div class="container">
+    <div class="services-head">
+      <div data-reveal>
+        <span class="section-kicker">What We Do</span>
+        <h2>Complete interior solutions, from first idea to final detail.</h2>
+      </div>
+      <p data-reveal data-reveal-delay="1">A beautiful interior needs more than a mood board. We bring planning, design direction and practical coordination together, so you can make confident decisions at every stage of your project.</p>
+    </div>
+    <div class="service-grid">
+      <article class="service-item" data-reveal><span class="service-index">01 / RESIDENTIAL</span><h3>Home Interior Design</h3><p>Personalised living rooms, bedrooms, kitchens and full-home concepts shaped around your routine, taste and available space.</p><a class="service-link" href="#contact">Discuss your home ↗</a></article>
+      <article class="service-item" data-reveal data-reveal-delay="1"><span class="service-index">02 / COMMERCIAL</span><h3>Office & Workspace Design</h3><p>Functional work environments with considered layouts, lighting, storage and material choices that support the way your team works.</p><a class="service-link" href="#contact">Plan a workspace ↗</a></article>
+      <article class="service-item" data-reveal data-reveal-delay="2"><span class="service-index">03 / HOSPITALITY</span><h3>Restaurant & Café Design</h3><p>Guest-focused spaces that balance atmosphere, circulation, seating capacity, service flow and a memorable brand experience.</p><a class="service-link" href="#contact">Shape a venue ↗</a></article>
+      <article class="service-item" data-reveal><span class="service-index">04 / VISUALISATION</span><h3>3D Design & Visualisation</h3><p>Realistic visual previews that help you understand proportions, finishes, furniture and lighting before execution begins.</p><a class="service-link" href="#contact">Visualise your space ↗</a></article>
+      <article class="service-item" data-reveal data-reveal-delay="1"><span class="service-index">05 / PLANNING</span><h3>Space Planning & Layout</h3><p>Practical floor plans that improve movement, room proportions, storage and the relationship between different areas.</p><a class="service-link" href="#contact">Review your layout ↗</a></article>
+      <article class="service-item" data-reveal data-reveal-delay="2"><span class="service-index">06 / FINISHES</span><h3>Furniture & Material Selection</h3><p>Coordinated palettes for surfaces, furniture, fixtures, lighting and accessories — selected to create a consistent result.</p><a class="service-link" href="#contact">Choose your finishes ↗</a></article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= INTERACTIVE DESIGN COST ESTIMATOR ================= -->
+<section class="dga-estimator" id="cost-estimator" aria-label="Interior project budget planner">
+  <div class="container">
+    <div class="dga-estimator-head" data-reveal>
+      <span class="section-kicker">Plan With Clarity</span>
+      <h2>What could your space cost to bring to life?</h2>
+      <p>Share your project type, the area you want to design and your total project budget. Get a realistic starting range and a package recommendation before speaking with our team.</p>
+    </div>
+
+    <div class="dga-estimator-shell" data-reveal>
+      <div class="dga-estimator-form">
+        <div class="dga-est-field">
+          <div class="dga-est-step">01 / Your project</div>
+          <label for="dga-est-project">What kind of space are you planning?</label>
+          <select class="dga-est-select" id="dga-est-project">
+            <option value="Residential">Residential — apartment / house</option>
+            <option value="Commercial">Commercial — office / workspace</option>
+            <option value="Café & Restaurant">Café & restaurant</option>
+            <option value="Retail / Store">Retail — store / showroom</option>
+          </select>
+        </div>
+
+        <div class="dga-est-field">
+          <div class="dga-est-step">02 / Area to design</div>
+          <label for="dga-est-sft">How much space needs interior work?</label>
+          <div class="dga-est-sft-wrap">
+            <input class="dga-est-number" id="dga-est-sft" type="number" min="100" max="100000" step="1" value="1200" inputmode="numeric" placeholder="e.g. 1200">
+            <span class="dga-est-sft-unit">SQ. FT.</span>
+          </div>
+          <small>Enter only the area included in this project. If you're renovating selected rooms, enter the combined area of those rooms.</small>
+        </div>
+
+        <div class="dga-est-field">
+          <div class="dga-est-step">03 / Project scope</div>
+          <label for="dga-est-scope">What level of work do you need?</label>
+          <select class="dga-est-select" id="dga-est-scope">
+            <option value="Full interior design & execution">Complete interior — design, materials, furniture & execution</option>
+            <option value="Selected rooms / zones">Selected rooms or zones only</option>
+            <option value="Design & planning only">Design & planning only — execution by my own team</option>
+          </select>
+          <small>The total-project estimate is intended for a coordinated design-and-execution scope. Other scopes are flagged separately so the calculator doesn't imply a false turnkey quote.</small>
+        </div>
+
+        <div class="dga-est-field">
+          <div class="dga-est-step">04 / Total project budget</div>
+          <label for="dga-est-budget">What is your overall budget?</label>
+          <div class="dga-est-sft-wrap">
+            <input class="dga-est-number" id="dga-est-budget" type="number" min="100000" max="1000000000" step="50000" value="2500000" inputmode="numeric" placeholder="e.g. 2500000">
+            <span class="dga-est-sft-unit">BDT</span>
+          </div>
+          <small>Your total budget for the complete project — including design, materials, furniture and execution. Enter the amount in taka.</small>
+          <div class="dga-est-budget-note"><span>Live budget fit</span><span>Instant comparison</span><span>No sign-up</span></div>
+        </div>
+      </div>
+
+      <aside class="dga-est-result" aria-live="polite" aria-atomic="true">
+        <div>
+          <div class="dga-est-result-top">
+            <span class="dga-est-result-label">Your project snapshot</span>
+            <span class="dga-est-live">Live estimate</span>
+          </div>
+          <div class="dga-est-recommend-tag" id="dga-est-status">Recommended starting point</div>
+          <h3 class="dga-est-plan" id="dga-est-plan">Premium Plan</h3>
+          <p class="dga-est-plan-desc" id="dga-est-description">A balanced finish level for a considered, practical and polished space.</p>
+          <span class="dga-est-amount-label" id="dga-est-amount-label">Indicative total project range</span>
+          <div class="dga-est-amount" id="dga-est-amount">৳21–30 lakh</div>
+          <div class="dga-est-rate" id="dga-est-rate">Approx. ৳1,800–2,500 per sq. ft.</div>
+          <div class="dga-est-breakdown">
+            <div><span>Project type</span><strong id="dga-est-summary-project">Residential</strong></div>
+            <div><span>Area</span><strong id="dga-est-summary-area">1,200 sq. ft.</strong></div>
+            <div><span>Your total budget</span><strong id="dga-est-summary-budget">৳25 lakh</strong></div>
+            <div><span>Budget per sq. ft.</span><strong id="dga-est-summary-rate">৳2,083</strong></div>
+          </div>
+          <div class="dga-est-budget-meter" aria-hidden="true"><span id="dga-est-meter-fill"></span></div>
+          <p class="dga-est-meter-caption" id="dga-est-meter-caption">Your budget sits within the indicative range.</p>
+          <div class="dga-est-design-fee">
+            <span>Design Feather Interior design package reference</span>
+            <strong id="dga-est-design-fee">৳1,20,000</strong>
+            <small id="dga-est-design-fee-note">Premium reference: ৳100 / sq. ft. Included as a component of the overall project budget range, not an extra amount to add.</small>
+          </div>
+          <div class="dga-est-warning" id="dga-est-warning" role="status"></div>
+        </div>
+        <div>
+          <a class="dga-est-cta" id="dga-est-contact" href="#contact">
+            Discuss my project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <p class="dga-est-disclaimer">Planning estimate only, not a quotation. Rates are indicative Bangladesh market references and vary by location, measured scope, material specification, furniture quantity, MEP work and site condition. A site review and itemised BOQ are required for a reliable quote. For design-only or partial-room scopes, the full-project benchmark does not apply.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= PHILOSOPHY ================= -->
+<section class="philosophy" id="philosophy" aria-label="Design philosophy">
+  <div class="phil-panel" data-parallax>
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2200&auto=format&fit=crop"
+         alt="Warm minimalist interior with natural materials and soft lighting"
+         loading="lazy">
+    <div class="shade"></div>
+    <div class="content" data-reveal>
+      <span class="num">I</span>
+      <h2>Light as a building material.</h2>
+      <div class="divider"></div>
+      <p>We believe light is the most powerful material in any space. Every decision — from window placement to surface finish — is made in dialogue with natural light throughout the day.</p>
+    </div>
+  </div>
+  <div class="phil-panel" data-parallax>
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2200&auto=format&fit=crop"
+         alt="Textured stone wall and warm wooden surfaces in a modern interior"
+         loading="lazy">
+    <div class="shade"></div>
+    <div class="content" data-reveal>
+      <span class="num">II</span>
+      <h2>Material honesty.</h2>
+      <div class="divider"></div>
+      <p>We work with materials that carry their own history — natural stone, hand-troweled plaster, solid wood, linen. Things that age with grace and develop character over time.</p>
+    </div>
+  </div>
+  <div class="phil-panel" data-parallax>
+    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2200&auto=format&fit=crop"
+         alt="A serene minimalist bedroom with soft neutral tones and natural textiles"
+         loading="lazy">
+    <div class="shade"></div>
+    <div class="content" data-reveal>
+      <span class="num">III</span>
+      <h2>Quiet restraint.</h2>
+      <div class="divider"></div>
+      <p>We edit ruthlessly. A room should feel complete, not full. Every object earns its place. What remains is space — and space, properly held, is the truest form of luxury.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="projects" id="projects" aria-label="Featured projects">
+  <div class="container">
+    <div class="projects-head">
+      <div class="intro" data-reveal>
+        <p class="label">Selected Works</p>
+        <h2>Recent interiors.</h2>
+        <p>A small collection of residential and commercial spaces we've shaped over the past years.</p>
+      </div>
+      <a href="#contact" class="read-more" data-reveal>Inquire <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+    </div>
+    <div class="project-grid">
+      <a href="#contact" class="project-card" data-reveal>
+        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1600&auto=format&fit=crop"
+             alt="A minimalist modern living room with floor-to-ceiling windows overlooking trees"
+             loading="lazy">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <span class="card-cat">Residential — London</span>
+          <h3 class="card-title">Kensington Residence</h3>
+        </div>
+      </a>
+      <a href="#contact" class="project-card" data-reveal data-reveal-delay="1">
+         <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop"
+           alt="A warm beige luxury living room with natural sunlight and refined residential furnishings"
+             loading="lazy">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <span class="card-cat">Villa — Ibiza</span>
+          <h3 class="card-title">Casa Blanca</h3>
+        </div>
+      </a>
+      <a href="#contact" class="project-card" data-reveal data-reveal-delay="2">
+        <img src="https://images.unsplash.com/photo-1600585153490-76fb20a32601?q=80&w=1400&auto=format&fit=crop"
+             alt="An elegant restaurant interior with warm ambient lighting and natural materials"
+             loading="lazy">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <span class="card-cat">Restaurant — Paris</span>
+          <h3 class="card-title">Le Coin</h3>
+        </div>
+      </a>
+      <a href="#contact" class="project-card" data-reveal data-reveal-delay="3">
+        <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?q=80&w=1400&auto=format&fit=crop"
+             alt="A boutique hotel suite with warm textures and curated furnishings"
+             loading="lazy">
+        <div class="card-overlay"></div>
+        <div class="card-info">
+          <span class="card-cat">Hotel — Copenhagen</span>
+          <h3 class="card-title">The Nordique Suite</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= PROJECT SCOPE ================= -->
+<section class="scope-band" aria-label="What your interior design project can include">
+  <div class="container scope-layout">
+    <div data-reveal>
+      <span class="section-kicker">Designed With Purpose</span>
+      <h2>Good design is beautiful. Great design works in real life.</h2>
+      <p>Every project has different needs. Depending on the agreed scope, your design package can bring the key decisions into one clear direction — helping you understand the space before work begins.</p>
+    </div>
+    <ul class="scope-list" data-reveal data-reveal-delay="1">
+      <li>Space planning & furniture layout</li><li>2D floor plans & elevations</li>
+      <li>3D interior visualisation</li><li>Lighting & ceiling concepts</li>
+      <li>Colour and material palettes</li><li>Furniture and fixture selection</li>
+      <li>Custom storage and joinery concepts</li><li>Design detailing and coordination</li>
+    </ul>
+  </div>
+</section>
+<div class="consult-strip">
+  <div class="container">
+    <div><h2>Have a space in mind? Let's make a plan.</h2><p>Share your requirements and get a clear next step for your project.</p></div>
+    <a href="#contact">Start a Conversation ↗</a>
+  </div>
+</div>
+
+<!-- ================= PROCESS ================= -->
+<section class="process" id="process" aria-label="Our process">
+  <div class="container process-head">
+    <p class="label" data-reveal>How We Work</p>
+    <h2 data-reveal>A process rooted in understanding, refined through collaboration.</h2>
+  </div>
+  <div class="process-grid">
+    <div class="process-media" id="processMedia">
+      <img class="process-img" data-step-img="0"
+           src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1600&auto=format&fit=crop"
+           alt="An architectural hand-sketch of a room layout on a wooden desk">
+      <img class="process-img" data-step-img="1"
+           src="https://images.unsplash.com/photo-1596701780206-a867b7cab8b7?q=80&w=1600&auto=format&fit=crop"
+           alt="A mood board with fabric swatches, material samples and reference images">
+      <img class="process-img" data-step-img="2"
+           src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600&auto=format&fit=crop"
+           alt="Architectural blueprints and floor plans spread across a table">
+      <img class="process-img" data-step-img="3"
+           src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1600&auto=format&fit=crop"
+           alt="A finished interior space with natural light and carefully chosen furnishings">
+      <span class="step-num" id="stepNum" aria-hidden="true">01</span>
+    </div>
+    <div class="process-steps">
+      <article class="process-step" data-step="0">
+        <span class="tag">01 — Discovery</span>
+        <h3>We begin by listening to what the space already knows.</h3>
+        <p>Every project starts with a site visit and a long conversation. We want to understand how you live, how light moves through the rooms, and what the space needs to be — before we draw a single line.</p>
+        <div class="progress" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+      </article>
+      <article class="process-step" data-step="1">
+        <span class="tag">02 — Concept</span>
+        <h3>Ideas take shape through study and intuition.</h3>
+        <p>Spatial plans, mood boards, material palettes — this is where the project finds its direction. We present a refined concept that captures the feeling and function of the space before moving into detail.</p>
+        <div class="progress" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+      </article>
+      <article class="process-step" data-step="2">
+        <span class="tag">03 — Refinement</span>
+        <h3>Every detail earns its place.</h3>
+        <p>From the grain of the oak flooring to the weight of a door handle, we refine every element until nothing feels arbitrary. This phase is a dialogue — drawings, samples, revisions — until every decision feels inevitable.</p>
+        <div class="progress" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+      </article>
+      <article class="process-step" data-step="3">
+        <span class="tag">04 — Delivery</span>
+        <h3>A space built to be lived in for decades.</h3>
+        <p>We oversee every stage of installation, working alongside craftspeople and contractors to ensure the vision is realized with precision. The project concludes with a full walkthrough — and a space that is ready to become a home.</p>
+        <div class="progress" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="testimonials" aria-label="Our design commitments">
+  <div class="container">
+    <div class="testi-intro" data-reveal>
+      <p class="label">The Studio Standard</p>
+      <h2>What you can expect from working with us.</h2>
+    </div>
+    <div class="testi-carousel" data-testimonial-carousel>
+      <div class="testi-controls">
+        <button type="button" class="testi-nav" id="testiPrev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M15 6 9 12l6 6"/></svg></button>
+        <button type="button" class="testi-nav" id="testiNext" aria-label="Next testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m9 6 6 6-6 6"/></svg></button>
+      </div>
+      <div class="testi-viewport" id="testiViewport" tabindex="0" aria-roledescription="carousel" aria-label="Testimonials carousel">
+        <div class="testi-track" id="testiTrack">
+          <article class="testi-card">
+            <div class="testi-card-mark" aria-hidden="true">&ldquo;</div>
+            <div class="testi-card-head">
+              <img class="testi-avatar" src="https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=600&auto=format&fit=crop" alt="Residential interior design detail" loading="lazy" decoding="async">
+              <div class="testi-meta">
+                <strong>A Clear Design Direction</strong>
+                <span>Residential & Commercial</span>
+              </div>
+            </div>
+            <div class="testi-divider" aria-hidden="true"></div>
+            <blockquote>We begin by understanding how you use the space, what matters most to you and what the project needs to achieve. That clarity guides the design decisions from the beginning.</blockquote>
+          </article>
+          <article class="testi-card">
+            <div class="testi-card-mark" aria-hidden="true">&ldquo;</div>
+            <div class="testi-card-head">
+              <img class="testi-avatar" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600&auto=format&fit=crop" alt="Portrait of Practical Planning" loading="lazy" decoding="async">
+              <div class="testi-meta">
+                <strong>Practical Planning</strong>
+                <span>From Layout to Details</span>
+              </div>
+            </div>
+            <div class="testi-divider" aria-hidden="true"></div>
+            <blockquote>A strong concept should also work on site. We consider movement, lighting, storage, materials and daily use so that the finished space is not just attractive, but practical.</blockquote>
+          </article>
+          <article class="testi-card">
+            <div class="testi-card-mark" aria-hidden="true">&ldquo;</div>
+            <div class="testi-card-head">
+              <img class="testi-avatar" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=600&auto=format&fit=crop" alt="Portrait of Collaborative Process" loading="lazy" decoding="async">
+              <div class="testi-meta">
+                <strong>Collaborative Process</strong>
+                <span>Decisions Made Together</span>
+              </div>
+            </div>
+            <div class="testi-divider" aria-hidden="true"></div>
+            <blockquote>You stay involved at key decision points. We explain the options, align the details with the agreed direction and keep the design process focused on your priorities.</blockquote>
+          </article>
+        </div>
+      </div>
+      <div class="testi-dots" id="testiDots" aria-label="Choose a testimonial"></div>
+      <p class="testi-hint">Explore our approach. Use arrows, dots, keyboard, or swipe.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= FAQ ================= -->
+<section class="faq" id="faq" aria-label="Frequently asked questions">
+  <div class="container faq-layout">
+    <div class="faq-intro" data-reveal>
+      <span class="section-kicker">A Few Helpful Answers</span>
+      <h2>Before we begin, here's what you may want to know.</h2>
+      <p>Every project is different. These answers explain how an interior design engagement can start and what to prepare for the first conversation.</p>
+    </div>
+    <div class="faq-list" data-reveal data-reveal-delay="1">
+      <article class="faq-item open"><button class="faq-question" type="button" aria-expanded="true"><span>What should I share before the first discussion?</span><span>+</span></button><div class="faq-answer"><div><p>Share the location, approximate size, type of space, a few current photos and what you want to improve. If you have a floor plan or inspiration images, those are helpful too.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Can you work within a specific budget?</span><span>+</span></button><div class="faq-answer"><div><p>Yes. A realistic budget helps define the design scope, material direction and priorities. The final scope and any execution costs should be agreed before work begins.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Do you provide 2D plans and 3D visualisations?</span><span>+</span></button><div class="faq-answer"><div><p>These can be included where relevant to the project. The exact drawings, views and deliverables depend on the agreed service package.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Do you handle execution and site coordination?</span><span>+</span></button><div class="faq-answer"><div><p>Execution support and site coordination can be discussed during the initial consultation. The responsibilities, timeline and scope should be clearly defined in the project proposal.</p></div></div></article>
+      <article class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>How do I get a project estimate?</span><span>+</span></button><div class="faq-answer"><div><p>Send your project type, location, approximate area, preferred timeline and budget range. After reviewing the requirements, the studio can advise on the next step and a suitable scope.</p></div></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact" aria-label="Get in touch">
+  <div class="contact-bg-img">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2400&auto=format&fit=crop"
+         alt="Abstract interior detail with warm texture and natural light"
+         loading="lazy">
+  </div>
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-copy">
+        <p class="label" data-reveal>Get in Touch</p>
+        <h2 data-reveal>Let's talk about your space.</h2>
+        <p data-reveal data-reveal-delay="1">Every project begins with a conversation. Whether it's a home, a restaurant, or a gallery — we would be honoured to hear about what you're imagining.</p>
+        <div class="contact-details" data-reveal data-reveal-delay="2">
+          <div class="detail">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="text">
+              <strong>Email</strong>
+              <a href="mailto:studio@digitora-ag.com">studio@digitora-ag.com</a>
+            </div>
+          </div>
+          <div class="detail">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="text">
+              <strong>Studio</strong>
+              <span>67 Charlotte Road, London EC2A 3PE</span>
+            </div>
+          </div>
+          <div class="detail">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="text">
+              <strong>Phone</strong>
+              <a href="tel:+442079461234">+44 20 7946 1234</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form" id="contactFormWrap" data-reveal>
+        <form id="contactForm" novalidate>
+          <div class="form-body">
+            <div class="field">
+              <label for="contactName">Name</label>
+              <input type="text" id="contactName" name="name" placeholder="Your full name" required>
+            </div>
+            <div class="field">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="field">
+              <label for="contactProject">Project Type</label>
+              <select id="contactProject" name="project"><option value="">Select project type</option><option>Residential</option><option>Office / Commercial</option><option>Restaurant / Hospitality</option><option>Retail / Showroom</option><option>Other</option></select>
+            </div>
+            <div class="field">
+              <label for="contactBudget">Approximate Budget</label>
+              <select id="contactBudget" name="budget"><option value="">Select a budget range</option><option>To be discussed</option><option>Under 5 lakh</option><option>5–10 lakh</option><option>10–25 lakh</option><option>25 lakh+</option></select>
+            </div>
+            <div class="field">
+              <label for="contactMessage">Project Details</label>
+              <textarea id="contactMessage" name="message" placeholder="Tell us about your project..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">
+              Send Enquiry
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+            <p class="form-note">Submitting opens WhatsApp with your project details. No information is stored on this demo page.</p>
+          </div>
+          <div class="form-success" role="status" aria-live="polite">
+            <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3>Thank you.</h3>
+            <p>Your enquiry has been received. We will be in touch within 48 hours.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#main" class="brand">Design Feather <em>Interior</em></a>
+        <p>Interior architecture studio based in London, working internationally on residential, commercial and hospitality projects.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385-.105-.825-.195-2.085.045-2.985l.735-3.105c.045-.18.285-1.095.285-2.085 0-1.095-.645-1.905-1.455-1.905-.735 0-1.455.57-1.455 1.5 0 .54.21 1.125.54 1.44l-1.86 7.5c-.165.69-.24 1.47-.24 2.055 0 .945.24 1.86.66 2.64C2.22 20.46 0 16.44 0 12 0 5.37 5.37 0 12 0zm3.015 8.25c1.32 0 2.34.975 2.34 2.625 0 1.155-.45 2.19-1.17 2.94-.36.375-.48.855-.33 1.305.045.165.15.615.18.735.09.345.36.51.735.375 1.2-.48 1.995-1.785 1.995-3.36 0-2.34-1.755-4.005-4.275-4.005-2.835 0-4.575 1.875-4.575 4.41 0 2.19 1.215 3.42 2.205 3.42.345 0 .675-.285.78-.675.15-.57.255-1.02.39-1.455.12-.45-.24-.84-.705-.84-.555 0-1.02.57-1.02 1.335 0 .495.18.81.18.81s-.585 2.46-.705 2.88c-.165.72-.165 1.455-.09 2.07 1.035.33 2.13.495 3.27.495 4.41 0 8.01-3.57 8.01-7.98 0-4.41-3.6-8.01-8.01-8.01-4.44 0-8.01 3.6-8.01 8.01 0 3.135 1.785 5.865 4.335 7.125.12.06.24.045.315-.03.075-.09.045-.27.015-.39-.105-.42-.645-2.64-.705-2.775-.15-.615-.075-1.065.405-1.47.6-.525 1.08-1.17 1.08-2.16 0-1.485-1.17-2.595-2.775-2.595-2.01 0-3.42 1.53-3.42 3.75 0 1.08.375 1.83.9 2.34.195.195.27.495.165.795-.06.24-.21.855-.27 1.095-.075.3-.24.39-.48.27-1.155-.54-1.86-2.1-1.86-3.75 0-2.97 2.385-5.85 6.225-5.85z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <ul>
+          <li><a href="#projects">Residential</a></li>
+          <li><a href="#projects">Hospitality</a></li>
+          <li><a href="#projects">Commercial</a></li>
+          <li><a href="#projects">Furniture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="#story">About</a></li>
+          <li><a href="#philosophy">Philosophy</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Design Feather Interior. All rights reserved.</span>
+      <span>London &middot; Paris &middot; Ibiza</span>
+    </div>
+  </div> 
+</footer>
+
+<!-- Lenis -->
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+/* ============================================================
+  DESIGN FEATHER INTERIOR — Main JavaScript
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+
+  // -------------------------------------------------------
+  // 1. Lenis smooth scroll
+  // -------------------------------------------------------
+  const lenis = new Lenis({
+    lerp: 0.08,
+    smoothWheel: true,
+    wheelMultiplier: 0.9,
+    infinite: false,
+  });
+
+  // Sync Lenis with GSAP ScrollTrigger
+  lenis.on('scroll', ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+
+  // -------------------------------------------------------
+  // 2. Header scroll effect
+  // -------------------------------------------------------
+  const header = document.getElementById('siteHeader');
+
+  lenis.on('scroll', (e) => {
+    if (e.velocity > 0.5 || e.scroll > 80) {
+      header.classList.add('scrolled');
+    } else if (e.scroll < 40) {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // -------------------------------------------------------
+  // 3. Mobile nav
+  // -------------------------------------------------------
+  const navToggle = document.getElementById('navToggle');
+  const navOverlay = document.getElementById('navOverlay');
+  const body = document.body;
+
+  function toggleNav(open) {
+    body.classList.toggle('nav-open', open);
+    navToggle.setAttribute('aria-expanded', open);
+    if (open) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+  }
+
+  navToggle.addEventListener('click', () => {
+    toggleNav(!body.classList.contains('nav-open'));
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    ['click', 'touchend'].forEach(evt => {
+      link.addEventListener(evt, (e) => {
+        if (evt === 'touchend') e.preventDefault();
+        if (body.classList.contains('nav-open')) toggleNav(false);
+      });
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && body.classList.contains('nav-open')) toggleNav(false);
+  });
+
+  // -------------------------------------------------------
+  // 4. Hero parallax (GSAP)
+  // -------------------------------------------------------
+  gsap.to('.hero-media img', {
+    yPercent: 18,
+    scale: 1.08,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1.2,
+    }
+  });
+
+  // -------------------------------------------------------
+  // 5. Philosophy parallax panels
+  // -------------------------------------------------------
+  gsap.utils.toArray('[data-parallax]').forEach((panel, i) => {
+    const img = panel.querySelector('img');
+    if (!img) return;
+
+    gsap.to(img, {
+      yPercent: -15,
+      scale: 1.06,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: panel,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.4,
+      }
+    });
+  });
+
+  // -------------------------------------------------------
+  // 6. Narrative image parallax
+  // -------------------------------------------------------
+  const narrativeImg = document.querySelector('.narrative-media img');
+  if (narrativeImg) {
+    gsap.to(narrativeImg, {
+      yPercent: -8,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.narrative',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.2,
+      }
+    });
+  }
+
+  // -------------------------------------------------------
+  // 7. Process sticky storytelling
+  // -------------------------------------------------------
+  const processSteps = document.querySelectorAll('.process-step');
+  const processImgs = document.querySelectorAll('.process-img');
+  const stepNum = document.getElementById('stepNum');
+
+  if (processSteps.length && processImgs.length) {
+    const processSection = document.querySelector('.process-grid');
+
+    // Set first as active
+    processImgs[0].classList.add('active');
+    processSteps[0].classList.add('active');
+
+    processSteps.forEach((step, index) => {
+      ScrollTrigger.create({
+        trigger: step,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => activateStep(index),
+        onEnterBack: () => activateStep(index),
+      });
+    });
+
+    function activateStep(index) {
+      processSteps.forEach(s => s.classList.remove('active'));
+      processImgs.forEach(img => img.classList.remove('active'));
+      processSteps[index].classList.add('active');
+      processImgs[index].classList.add('active');
+      if (stepNum) {
+        stepNum.textContent = '0' + (index + 1);
+      }
+      // Update progress bars
+      const bars = processSteps[index].querySelectorAll('.bar');
+      bars.forEach((b, i) => {
+        if (i <= index) b.classList.add('done');
+        else b.classList.remove('done');
+      });
+    }
+
+    // Initial progress update
+    if (processSteps[0]) {
+      const bars = processSteps[0].querySelectorAll('.bar');
+      bars.forEach(b => b.classList.add('done'));
+    }
+  }
+
+  // -------------------------------------------------------
+  // 8. Project card reveal
+  // -------------------------------------------------------
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach((card, i) => {
+    gsap.from(card, {
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      delay: i * 0.12,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: card,
+        start: 'top bottom-=60px',
+        toggleActions: 'play none none reverse',
+      }
+    });
+  });
+
+  // -------------------------------------------------------
+  // 9. Testimonials carousel
+  // -------------------------------------------------------
+  const testimonialCarousel = document.querySelector('[data-testimonial-carousel]');
+
+  if (testimonialCarousel) {
+    const viewport = document.getElementById('testiViewport');
+    const track = document.getElementById('testiTrack');
+    const prevButton = document.getElementById('testiPrev');
+    const nextButton = document.getElementById('testiNext');
+    const dotsWrap = document.getElementById('testiDots');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const transitionValue = 'transform 900ms cubic-bezier(.22,1,.36,1)';
+    const originalSlides = Array.from(track.querySelectorAll('.testi-card'));
+    const originalCount = originalSlides.length;
+
+    if (originalCount > 1) {
+      const firstClone = originalSlides[0].cloneNode(true);
+      const lastClone = originalSlides[originalCount - 1].cloneNode(true);
+      firstClone.dataset.clone = 'true';
+      lastClone.dataset.clone = 'true';
+      track.insertBefore(lastClone, originalSlides[0]);
+      track.appendChild(firstClone);
+    }
+
+    let slides = Array.from(track.querySelectorAll('.testi-card'));
+    let activeIndex = originalCount > 1 ? 1 : 0;
+    let autoplayId = null;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragDelta = 0;
+    let dragOriginX = 0;
+    let currentTranslateX = 0;
+
+    const dots = originalSlides.map((_, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'testi-dot';
+      dot.setAttribute('aria-label', `Go to testimonial ${index + 1}`);
+      dot.addEventListener('click', () => {
+        pauseAutoplay();
+        goTo(index + 1);
+        startAutoplay();
+      });
+      dotsWrap.appendChild(dot);
+      return dot;
+    });
+
+    function realIndexFromTrackIndex(trackIndex) {
+      if (originalCount <= 1) return 0;
+      if (trackIndex <= 0) return originalCount - 1;
+      if (trackIndex >= slides.length - 1) return 0;
+      return trackIndex - 1;
+    }
+
+    function computeTranslate() {
+      const activeSlide = slides[activeIndex];
+      if (!activeSlide || !viewport) return 0;
+      const viewportWidth = viewport.getBoundingClientRect().width;
+      const activeCenter = activeSlide.offsetLeft + (activeSlide.offsetWidth / 2);
+      return Math.round(viewportWidth / 2 - activeCenter);
+    }
+
+    function updateClasses() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('is-active', index === activeIndex);
+        slide.classList.toggle('is-prev', index === activeIndex - 1 || (activeIndex === 0 && index === slides.length - 1));
+        slide.classList.toggle('is-next', index === activeIndex + 1 || (activeIndex === slides.length - 1 && index === 0));
+      });
+
+      const currentDotIndex = realIndexFromTrackIndex(activeIndex);
+      dots.forEach((dot, index) => {
+        const isCurrent = index === currentDotIndex;
+        dot.classList.toggle('is-active', isCurrent);
+        dot.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+      });
+    }
+
+    function applyState(animate = true) {
+      updateClasses();
+      currentTranslateX = computeTranslate();
+      track.style.transition = animate && !reduceMotion ? transitionValue : 'none';
+      track.style.transform = `translate3d(${currentTranslateX}px, 0, 0)`;
+    }
+
+    function goTo(nextIndex, animate = true) {
+      if (slides.length <= 1) return;
+      activeIndex = nextIndex;
+      applyState(animate);
+    }
+
+    function nextSlide() {
+      goTo(activeIndex + 1);
+    }
+
+    function prevSlide() {
+      goTo(activeIndex - 1);
+    }
+
+    function pauseAutoplay() {
+      if (autoplayId) {
+        window.clearInterval(autoplayId);
+        autoplayId = null;
+      }
+    }
+
+    function startAutoplay() {
+      if (reduceMotion || autoplayId || slides.length <= 1) return;
+      autoplayId = window.setInterval(nextSlide, 4500);
+    }
+
+    function syncLoop() {
+      if (activeIndex === 0) {
+        activeIndex = slides.length - 2;
+        applyState(false);
+      } else if (activeIndex === slides.length - 1) {
+        activeIndex = 1;
+        applyState(false);
+      }
+    }
+
+    track.addEventListener('transitionend', syncLoop);
+    prevButton.addEventListener('click', () => {
+      pauseAutoplay();
+      prevSlide();
+      startAutoplay();
+    });
+    nextButton.addEventListener('click', () => {
+      pauseAutoplay();
+      nextSlide();
+      startAutoplay();
+    });
+
+    viewport.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        pauseAutoplay();
+        prevSlide();
+        startAutoplay();
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        pauseAutoplay();
+        nextSlide();
+        startAutoplay();
+      }
+    });
+
+    viewport.addEventListener('pointerenter', pauseAutoplay);
+    viewport.addEventListener('pointerleave', startAutoplay);
+
+    viewport.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      isDragging = true;
+      dragStartX = event.clientX;
+      dragDelta = 0;
+      dragOriginX = currentTranslateX;
+      pauseAutoplay();
+      track.style.transition = 'none';
+      if (viewport.setPointerCapture) {
+        viewport.setPointerCapture(event.pointerId);
+      }
+    });
+
+    viewport.addEventListener('pointermove', (event) => {
+      if (!isDragging) return;
+      dragDelta = event.clientX - dragStartX;
+      track.style.transform = `translate3d(${dragOriginX + dragDelta}px, 0, 0)`;
+    });
+
+    function finishDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      const activeSlide = slides[activeIndex];
+      const threshold = Math.max(48, (activeSlide ? activeSlide.getBoundingClientRect().width : 0) * 0.16);
+
+      if (dragDelta < -threshold) {
+        nextSlide();
+      } else if (dragDelta > threshold) {
+        prevSlide();
+      } else {
+        applyState(true);
+      }
+
+      startAutoplay();
+    }
+
+    viewport.addEventListener('pointerup', finishDrag);
+    viewport.addEventListener('pointercancel', finishDrag);
+
+    window.addEventListener('resize', () => {
+      applyState(false);
+    });
+
+    applyState(false);
+    startAutoplay();
+  }
+
+  // -------------------------------------------------------
+  // 10. Contact form
+  // -------------------------------------------------------
+  const contactForm = document.getElementById('contactForm');
+  const contactWrap = document.getElementById('contactFormWrap');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const project = document.getElementById('contactProject').value.trim();
+      const budget = document.getElementById('contactBudget').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+
+      if (!name || !email || !message) {
+        [document.getElementById('contactName'), document.getElementById('contactEmail'), document.getElementById('contactMessage')].forEach(input => {
+          if (!input.value.trim()) {
+            input.style.borderColor = '#C4956A';
+            input.addEventListener('input', function handler() {
+              input.style.borderColor = '';
+              input.removeEventListener('input', handler);
+            }, { once: true });
+          }
+        });
+        return;
+      }
+
+      const enquiry = [
+        'Hello, I would like to discuss an interior design project.',
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Project type: ${project || 'Not specified'}`,
+        `Approximate budget: ${budget || 'Not specified'}`,
+        `Project details: ${message}`
+      ].join('\\n');
+      const whatsappNumber = '8801700000000'; // Replace with the studio's WhatsApp number.
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(enquiry)}`, '_blank', 'noopener');
+    });
+  }
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach((button) => {
+    button.addEventListener('click', () => {
+      const item = button.closest('.faq-item');
+      const isOpen = item.classList.toggle('open');
+      button.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+
+  // -------------------------------------------------------
+  // 11. Refresh ScrollTrigger on Lenis resize
+  // -------------------------------------------------------
+  window.addEventListener('resize', () => {
+    ScrollTrigger.refresh();
+  });
+});
+</script>
+
+<a class="whatsapp-float" href="https://wa.me/8801700000000?text=Hello%2C%20I%27d%20like%20to%20discuss%20an%20interior%20design%20project." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 3C8.86 3 3.04 8.81 3.04 15.97c0 2.29.6 4.52 1.75 6.48L3 29l6.72-1.76a13 13 0 0 0 6.29 1.61h.01c7.15 0 12.97-5.82 12.97-12.98A12.9 12.9 0 0 0 25.2 6.7 12.9 12.9 0 0 0 16.02 3zm0 23.65h-.01a10.7 10.7 0 0 1-5.45-1.49l-.39-.23-3.99 1.05 1.07-3.89-.25-.4a10.65 10.65 0 0 1-1.64-5.72c0-5.89 4.79-10.68 10.68-10.68 2.85 0 5.53 1.11 7.55 3.13a10.6 10.6 0 0 1 3.13 7.55c0 5.89-4.79 10.68-10.69 10.68zm5.86-8c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.11-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.4-.26-.63-.53-.55-.73-.56h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.67s1.16 3.1 1.32 3.31c.16.21 2.28 3.48 5.52 4.88.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.75.27-1.4.19-1.53-.08-.13-.29-.21-.62-.37z"/></svg>
+</a>
+
+
+<!-- Design Feather Interior conversational project assistant -->
+<div id="dga-chat-root">
+  <button id="dga-chat-launcher" type="button" aria-label="Open Design Feather Interior chat" aria-expanded="false" aria-controls="dga-chat-panel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H5l1.8-3A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8.5 11.5h7M8.5 14.5h4"/></svg><span class="dga-launch-dot"></span>
+  </button>
+  <section id="dga-chat-panel" role="dialog" aria-label="Design Feather Interior project assistant" aria-modal="false" aria-hidden="true">
+    <header class="dga-chat-head">
+      <div class="dga-chat-avatar" aria-hidden="true">D·A</div>
+      <div class="dga-chat-brand"><strong>Design Feather Interior</strong><span><i class="dga-online"></i> Studio enquiry assistant</span></div>
+      <div class="dga-head-actions">
+        <button id="dga-chat-restart" type="button" aria-label="Restart conversation" title="Restart conversation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11a9 9 0 1 1 2.6 6.4"/><path d="M3 4v7h7"/></svg></button>
+        <button id="dga-chat-close" type="button" aria-label="Close chat" title="Close chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      </div>
+    </header>
+    <div id="dga-chat-messages" class="dga-chat-messages" aria-live="polite" aria-relevant="additions text"></div>
+    <form id="dga-chat-form" class="dga-chat-composer">
+      <div class="dga-input-row">
+        <input id="dga-chat-input" type="text" autocomplete="off" maxlength="600" placeholder="Write a message…" aria-label="Type your message">
+        <button id="dga-chat-send" type="button" aria-label="Send message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></button>
+      </div>
+      <div class="dga-composer-note"><span>Typically replies instantly</span><span>Design Feather Interior · Project desk</span></div>
+    </form>
+  </section>
+</div>
+
+
+<script>
+/* ============================================================
+   DESIGN FEATHER INTERIOR — Independent rule-based conversation assistant
+   No AI API, external service, or backend dependency.
+   Configure business details in DGA_CHAT_CONFIG below.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  const DGA_CHAT_CONFIG = {
+    studioName: 'Design Feather Interior',
+    /* Add the studio's WhatsApp number in international format, digits only.
+       Example format: '44XXXXXXXXXX'. Leave empty until verified. */
+    whatsappNumber: '',
+    /* Optional actual rate card. Leave null until approved studio rates exist.
+       Example: { currency: 'GBP', minPerSqFt: 8, maxPerSqFt: 14 } */
+    pricing: null,
+    sessionKey: 'design_feather_interior_chat_session_v1',
+    responseDelay: 520
+  };
+
+  const DGA_KNOWLEDGE = {
+    services: {
+      title: 'Studio services',
+      keywords: ['service','services','what do you do','what can you do','offer','offering','interior design','design service'],
+      answer: 'Design Feather Interior presents complete interior solutions, bringing together spatial planning, design direction, material selection, lighting and practical coordination. The exact deliverables are agreed around each project’s requirements.'
+    },
+    residential: {
+      title: 'Residential design',
+      keywords: ['apartment','residential','home','house','bedroom','living room','kitchen','my flat','my home'],
+      answer: 'The studio works with homeowners to create thoughtful residential interiors. A useful starting point is your property location, approximate floor area, the rooms involved, current photos and what you would like to improve.'
+    },
+    commercial: {
+      title: 'Commercial design',
+      keywords: ['commercial','retail','showroom','gallery','hotel','hospitality','shop','store'],
+      answer: 'Design Feather Interior describes residential and commercial interior work, including hospitality-related spaces. The scope, operational needs and deliverables can be discussed after reviewing the space and brief.'
+    },
+    office: {
+      title: 'Office design',
+      keywords: ['office','workspace','work space','employees','meeting room','workplace'],
+      answer: 'For an office, it helps to understand the approximate area, team capacity, meeting-room needs, work zones and any visitor-facing spaces. The studio can then discuss a suitable design scope.'
+    },
+    restaurant: {
+      title: 'Restaurant design',
+      keywords: ['restaurant','cafe','café','bar','dining','seating capacity','food service'],
+      answer: 'For a restaurant or café, useful details include seating capacity, dining zones, kitchen and service requirements, circulation, approximate area and the atmosphere you want to create.'
+    },
+    planning: {
+      title: 'Space planning and drawings',
+      keywords: ['space planning','floor plan','2d','2d plan','layout','plan drawing','technical drawing'],
+      answer: 'Spatial planning is part of the studio’s design approach. 2D plans and other drawings can be included where relevant; the exact drawing set depends on the agreed service package.'
+    },
+    visualization: {
+      title: '3D visualisation',
+      keywords: ['3d','visualisation','visualization','render','rendering','3d view','3d design'],
+      answer: '3D visualisations can be included where relevant to the project. The number and type of views depend on the agreed scope and service package.'
+    },
+    process: {
+      title: 'Design process',
+      keywords: ['process','how does it work','how do you work','steps','workflow','design stages'],
+      answer: 'The website describes a process that begins by understanding your goals, space, lifestyle or business needs and budget. Design direction, planning, materials and practical coordination are then defined within the agreed project scope.'
+    },
+    timeline: {
+      title: 'Project timeline',
+      keywords: ['timeline','how long','duration','deadline','when can','start date','weeks','months','timeframe','turnaround'],
+      answer: 'A reliable timeline depends on the project size, scope, approvals, selected deliverables and whether execution coordination is included. The studio team needs to review those details before confirming a schedule.'
+    },
+    pricing: {
+      title: 'Pricing and budget',
+      keywords: ['price','pricing','cost','costs','budget','how much','rate','rates','quotation','quote','estimate','charge','fees'],
+      answer: 'Design Feather Interior does not publish a fixed rate in the information available here. A quotation needs a review of the project type, location, approximate area, requirements and preferred scope. Any estimate before that review would not be a final quotation.'
+    },
+    consultation: {
+      title: 'Consultation',
+      keywords: ['consultation','consult','meeting','discuss','talk to','appointment','call','first discussion'],
+      answer: 'To prepare for an initial discussion, share the location, approximate size, type of space, a few current photos and what you want to improve. A floor plan or inspiration images are helpful too.'
+    },
+    location: {
+      title: 'Studio location',
+      keywords: ['where','location','address','based','located','visit','office address'],
+      answer: 'The website lists the studio at 67 Charlotte Road, London EC2A 3PE, and describes the studio as working internationally. Please confirm visit arrangements with the studio team before travelling.'
+    },
+    materials: {
+      title: 'Materials and finishes',
+      keywords: ['material','materials','finish','finishes','wood','marble','stone','fabric','lighting','furniture','style'],
+      answer: 'Material selection and lighting are part of the studio’s stated design approach. Preferred finishes, maintenance needs, durability and budget can all be discussed while defining the brief.'
+    },
+    portfolio: {
+      title: 'Portfolio',
+      keywords: ['portfolio','projects','project examples','previous work','work samples','gallery','case study'],
+      answer: 'You can explore the Projects section on this website for the studio’s showcased work.'
+    },
+    execution: {
+      title: 'Execution and site coordination',
+      keywords: ['execution','site coordination','contractor','construction','build','implementation','supervision'],
+      answer: 'Execution support and site coordination can be discussed during the initial consultation. Responsibilities, timeline and scope should be clearly defined in the project proposal.'
+    }
+  };
+
+  const DGA_PROJECT_OPTIONS = ['Apartment / Home', 'Office', 'Restaurant / Café', 'Commercial / Retail', 'Hotel / Hospitality', 'Other'];
+  const DGA_SCOPE_OPTIONS = ['Full interior design', 'Space planning & 2D plans', '3D visualisation', 'Materials & finishes', 'Design + execution discussion', 'Not sure yet'];
+  const DGA_STYLE_OPTIONS = ['Modern minimal', 'Contemporary', 'Warm / natural', 'Luxury', 'Classic', 'Industrial', 'Not decided yet'];
+
+  const root = document.getElementById('dga-chat-root');
+  if (!root) return;
+  const panel = document.getElementById('dga-chat-panel');
+  const launcher = document.getElementById('dga-chat-launcher');
+  const closeButton = document.getElementById('dga-chat-close');
+  const restartButton = document.getElementById('dga-chat-restart');
+  const messagesEl = document.getElementById('dga-chat-messages');
+  const form = document.getElementById('dga-chat-form');
+  const input = document.getElementById('dga-chat-input');
+  const sendButton = document.getElementById('dga-chat-send');
+
+  const state = {
+    messages: [], answers: {}, step: 'welcome', history: [], leadCategory: 'Early-stage Enquiry',
+    summaryShown: false, isTyping: false
+  };
+
+  const escapeHTML = value => String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[char]));
+  const normalise = value => String(value || '').toLowerCase().normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9+.\s]/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+  const timeLabel = () => new Intl.DateTimeFormat(undefined, {hour:'numeric', minute:'2-digit'}).format(new Date());
+
+  function persist() {
+    try {
+      sessionStorage.setItem(DGA_CHAT_CONFIG.sessionKey, JSON.stringify({
+        messages: state.messages, answers: state.answers, step: state.step,
+        history: state.history, summaryShown: state.summaryShown
+      }));
+    } catch (_) { /* Private browsing or storage restrictions: chat still works in memory. */ }
+  }
+
+  function restore() {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(DGA_CHAT_CONFIG.sessionKey) || 'null');
+      if (!saved || !Array.isArray(saved.messages) || !saved.answers) return false;
+      state.messages = saved.messages;
+      state.answers = saved.answers;
+      state.step = saved.step || 'welcome';
+      state.history = Array.isArray(saved.history) ? saved.history : [];
+      state.summaryShown = !!saved.summaryShown;
+      return true;
+    } catch (_) { return false; }
+  }
+
+  function scrollLatest() {
+    requestAnimationFrame(() => { messagesEl.scrollTop = messagesEl.scrollHeight; });
+  }
+
+  function renderMessage(message) {
+    const row = document.createElement('div');
+    row.className = 'dga-message-row' + (message.role === 'user' ? ' dga-user' : '');
+    if (message.role !== 'user') {
+      const avatar = document.createElement('span');
+      avatar.className = 'dga-mini-avatar';
+      avatar.textContent = 'D·A';
+      avatar.setAttribute('aria-hidden', 'true');
+      row.appendChild(avatar);
+    }
+    const wrap = document.createElement('div');
+    wrap.className = 'dga-bubble-wrap';
+    const bubble = document.createElement('div');
+    bubble.className = 'dga-bubble';
+    bubble.textContent = message.text;
+    const time = document.createElement('time');
+    time.className = 'dga-time';
+    time.textContent = message.time || '';
+    wrap.append(bubble, time);
+    row.appendChild(wrap);
+    messagesEl.appendChild(row);
+  }
+
+  function renderAll() {
+    messagesEl.innerHTML = '';
+    state.messages.forEach(renderMessage);
+    if (state.summaryShown) renderSummaryCard();
+    scrollLatest();
+  }
+
+  function addMessage(role, text) {
+    const message = {role, text: String(text), time: timeLabel()};
+    state.messages.push(message);
+    state.history.push({role, text: String(text), at: Date.now()});
+    renderMessage(message);
+    persist();
+    scrollLatest();
+  }
+
+  function showTyping() {
+    if (state.isTyping) return;
+    state.isTyping = true;
+    const typing = document.createElement('div');
+    typing.className = 'dga-typing';
+    typing.id = 'dga-typing-indicator';
+    typing.innerHTML = '<i></i><i></i><i></i>';
+    messagesEl.appendChild(typing);
+    scrollLatest();
+  }
+  function hideTyping() {
+    const typing = document.getElementById('dga-typing-indicator');
+    if (typing) typing.remove();
+    state.isTyping = false;
+  }
+  function botSay(text, options, callback) {
+    showTyping();
+    window.setTimeout(() => {
+      hideTyping();
+      addMessage('bot', text);
+      if (options && options.length) showQuickReplies(options);
+      if (callback) callback();
+    }, DGA_CHAT_CONFIG.responseDelay + Math.min(String(text).length * 5, 650));
+  }
+
+  function showQuickReplies(options) {
+    const old = messagesEl.querySelector('.dga-quick-replies');
+    if (old) old.remove();
+    const wrap = document.createElement('div');
+    wrap.className = 'dga-quick-replies';
+    options.forEach(option => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = option.label || option;
+      button.addEventListener('click', () => {
+        wrap.remove();
+        handleUserInput(option.value || option.label || option);
+      });
+      wrap.appendChild(button);
+    });
+    messagesEl.appendChild(wrap);
+    scrollLatest();
+  }
+
+  function openChat() {
+    panel.classList.add('dga-open');
+    panel.setAttribute('aria-hidden', 'false');
+    launcher.setAttribute('aria-expanded', 'true');
+    if (!state.messages.length) startConversation();
+    window.setTimeout(() => input.focus(), 250);
+    scrollLatest();
+  }
+  function closeChat() {
+    panel.classList.remove('dga-open');
+    panel.setAttribute('aria-hidden', 'true');
+    launcher.setAttribute('aria-expanded', 'false');
+    launcher.focus();
+  }
+
+  function startConversation() {
+    state.step = 'welcome';
+    botSay('Hello, welcome to Design Feather Interior. I can answer common studio questions or help shape a project brief. What would you like to explore?', [
+      'Plan a project', 'Explore services', 'Ask a question'
+    ]);
+    persist();
+  }
+
+  function findFAQ(text) {
+    const query = normalise(text);
+    if (!query) return null;
+    let best = null, bestScore = 0;
+    Object.entries(DGA_KNOWLEDGE).forEach(([key, item]) => {
+      let score = 0;
+      item.keywords.forEach(keyword => {
+        const term = normalise(keyword);
+        if (term && (query === term || query.includes(term))) score = Math.max(score, term.includes(' ') ? 4 : 2);
+        else if (term && term.split(' ').every(word => word.length > 3 && query.includes(word))) score = Math.max(score, 1);
+      });
+      if (score > bestScore) { bestScore = score; best = {key, ...item}; }
+    });
+    return bestScore >= 2 ? best : null;
+  }
+
+  function detectIntent(text) {
+    const q = normalise(text);
+    if (/\b(price|pricing|cost|budget|how much|rate|quote|quotation|estimate|fees?)\b/.test(q)) return 'pricing';
+    if (/\b(3d|render|visuali[sz])\b/.test(q)) return 'visualization';
+    if (/\b(timeline|how long|duration|deadline|weeks|months)\b/.test(q)) return 'timeline';
+    if (/\b(portfolio|projects|previous work|case study)\b/.test(q)) return 'portfolio';
+    if (/\b(address|location|where are|where is|based)\b/.test(q)) return 'location';
+    if (/\b(consult|meeting|appointment|call|speak to)\b/.test(q)) return 'consultation';
+    if (/\b(material|finish|wood|marble|fabric|lighting)\b/.test(q)) return 'materials';
+    if (/\b(floor plan|2d|space plan|layout)\b/.test(q)) return 'planning';
+    if (/\b(office|workplace|employee|meeting room)\b/.test(q)) return 'office';
+    if (/\b(restaurant|cafe|café|dining|seating)\b/.test(q)) return 'restaurant';
+    if (/\b(apartment|residential|home|house|bedroom|kitchen)\b/.test(q)) return 'residential';
+    if (/\b(service|services|what do you do)\b/.test(q)) return 'services';
+    if (/\b(process|workflow|how do you work)\b/.test(q)) return 'process';
+    if (/\b(execution|site|contractor|construction)\b/.test(q)) return 'execution';
+    return null;
+  }
+
+  function answerKnowledge(intent) {
+    const item = DGA_KNOWLEDGE[intent];
+    if (!item) return false;
+    botSay(item.answer, [
+      {label:'Start a project brief',value:'Plan a project'},
+      {label:'Ask another question',value:'Ask a question'}
+    ]);
+    return true;
+  }
+
+  function updateLeadCategory() {
+    const a = state.answers;
+    let readiness = 0;
+    if (a.name) readiness += 1;
+    if (a.phone) readiness += 2;
+    if (a.projectType) readiness += 2;
+    if (a.area) readiness += 1;
+    if (a.budget) readiness += 1;
+    if (a.timeline) readiness += 2;
+    if (a.scope) readiness += 1;
+    if (a.location) readiness += 1;
+    if (readiness >= 9) state.leadCategory = 'High Intent';
+    else if (readiness >= 5) state.leadCategory = 'Potential Lead';
+    else state.leadCategory = 'Early-stage Enquiry';
+    return state.leadCategory;
+  }
+
+  function estimateProject() {
+    const area = Number(String(state.answers.area || '').replace(/[^0-9.]/g, ''));
+    const rates = DGA_CHAT_CONFIG.pricing;
+    if (rates && area > 0 && Number.isFinite(area) && rates.minPerSqFt >= 0 && rates.maxPerSqFt >= rates.minPerSqFt) {
+      const low = area * rates.minPerSqFt, high = area * rates.maxPerSqFt;
+      return `Indicative design-fee range: ${rates.currency || ''} ${low.toLocaleString()}–${high.toLocaleString()}. This is an indicative calculation only, not a final quotation; the studio must review the brief and confirm scope.`;
+    }
+    return 'No approved studio rate card is configured, so I will not invent a price. The studio team needs to review your area, location and requirements before preparing a quotation.';
+  }
+
+  const flow = {
+    projectType: {question:'What type of space are you planning to design?', options:DGA_PROJECT_OPTIONS},
+    area: {question:'Approximately how large is the property? You can enter square feet (for example, 1,200 sq ft), or choose to skip for now.', optional:true},
+    scope: {question:'What would you like help with?', options:DGA_SCOPE_OPTIONS},
+    requirements: {question:'Any specific requirements we should know about? For example, bedrooms, staff capacity, meeting rooms, seating capacity or operational needs.', optional:true},
+    style: {question:'Which design direction feels closest to what you have in mind?', options:DGA_STYLE_OPTIONS},
+    materials: {question:'Any preferred materials or finishes? You can mention wood, stone, fabrics, lighting, colours—or skip.', optional:true},
+    location: {question:'Where is the project located? City and country are enough for now.', optional:true},
+    budget: {question:'Do you have an approximate budget range? You can enter a range or choose “To be discussed”.', options:['To be discussed','Under 5 lakh','5–10 lakh','10–25 lakh','25 lakh+','Prefer not to say']},
+    timeline: {question:'When are you hoping to start?', options:['As soon as possible','Within 1–3 months','Within 3–6 months','In 6+ months','Just exploring']},
+    name: {question:'What name should the studio team use when following up?'},
+    phone: {question:'What is the best phone number to reach you on, including country code?'},
+    email: {question:'Would you like to add an email address? This is optional.', optional:true, email:true},
+    extra: {question:'Anything else you would like the studio to know? This is optional.', optional:true}
+  };
+  const flowOrder = ['projectType','area','scope','requirements','style','materials','location','budget','timeline','name','phone','email','extra'];
+
+  function askStep(key) {
+    state.step = key;
+    const item = flow[key];
+    let question = item.question;
+    if (key === 'requirements') {
+      const project = normalise(state.answers.projectType || '');
+      if (project.includes('office')) question = 'For the office, what team capacity, workstation count, meeting rooms, reception or collaborative zones should we plan for?';
+      else if (project.includes('restaurant') || project.includes('cafe')) question = 'For the restaurant or café, what seating capacity, dining zones, kitchen or service areas should we plan for?';
+      else if (project.includes('apartment') || project.includes('home')) question = 'For the home, which rooms are included—bedrooms, living room, kitchen, bathrooms or the whole property? Any specific lifestyle needs?';
+      else if (project.includes('commercial') || project.includes('retail')) question = 'For the commercial space, what customer-facing areas, display zones, storage, staff facilities or operational needs should we consider?';
+      else if (project.includes('hotel')) question = 'For the hospitality space, which areas are included—guest rooms, reception, dining, lounge or back-of-house?';
+    }
+    const opts = item.options ? item.options.map(value => ({label:value,value})) : [];
+    if (item.optional) opts.push({label:'Skip for now',value:'__skip__'});
+    botSay(question, opts);
+    persist();
+  }
+
+  function beginBrief() {
+    state.answers = {};
+    state.summaryShown = false;
+    state.step = 'projectType';
+    botSay('Wonderful. I’ll ask a few short questions and prepare a project brief for you. You can skip optional details at any time.', null, () => askStep('projectType'));
+  }
+
+  function nextFlowStep(current) {
+    const index = flowOrder.indexOf(current);
+    if (index < flowOrder.length - 1) askStep(flowOrder[index + 1]);
+    else finishBrief();
+  }
+
+  function validateAnswer(key, value) {
+    const item = flow[key] || {};
+    const val = String(value || '').trim();
+    if (value === '__skip__' && item.optional) return {ok:true,value:''};
+    if (!val && !item.optional) return {ok:false,message:'Please add a response so I can continue.'};
+    if (key === 'area' && val) {
+      const numeric = Number(val.replace(/[^0-9.]/g,''));
+      if (!Number.isFinite(numeric) || numeric <= 0) return {ok:false,message:'Please enter an approximate positive area, such as 1200 sq ft, or use Skip for now.'};
+    }
+    if (key === 'phone' && !/^[+]?[\d\s().-]{7,20}$/.test(val)) return {ok:false,message:'That phone number does not look complete. Please include the country code and at least 7 digits.'};
+    if (item.email && val && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val)) return {ok:false,message:'That email address does not look valid. Please check it or choose Skip for now.'};
+    return {ok:true,value:val};
+  }
+
+  function handleFlowAnswer(value) {
+    const key = state.step;
+    const result = validateAnswer(key, value);
+    if (!result.ok) { botSay(result.message, flow[key].optional ? [{label:'Skip for now',value:'__skip__'}] : null); return; }
+    state.answers[key] = result.value;
+    state.history.push({role:'system',text:`${key}: ${result.value || 'Skipped'}`,at:Date.now()});
+    persist();
+    if (key === 'projectType') {
+      const project = normalise(result.value);
+      if (project.includes('office')) state.answers.projectContext = 'Office requirements such as staff capacity, meeting rooms and work zones';
+      else if (project.includes('restaurant') || project.includes('cafe')) state.answers.projectContext = 'Hospitality requirements such as seating, dining and kitchen operations';
+      else if (project.includes('apartment') || project.includes('home')) state.answers.projectContext = 'Residential rooms and lifestyle requirements';
+      else state.answers.projectContext = 'Operational and spatial requirements for the selected space';
+    }
+    if (key === 'area') state.answers.area = result.value ? result.value : '';
+    if (key === 'phone') state.answers.phone = result.value;
+    botSay(key === 'phone' ? 'Thank you. I have that contact number.' : 'Thank you — that helps shape the brief.', null, () => nextFlowStep(key));
+  }
+
+  function summaryData() {
+    const a = state.answers;
+    return [
+      ['Contact name',a.name],['Phone',a.phone],['Email',a.email],
+      ['Project type',a.projectType],['Location',a.location],['Approx. area',a.area],
+      ['Required services',a.scope],['Requirements',a.requirements],
+      ['Design style',a.style],['Materials / finishes',a.materials],
+      ['Budget range',a.budget],['Expected start',a.timeline],['Additional notes',a.extra]
+    ].filter(pair => pair[1]);
+  }
+
+  function renderSummaryCard() {
+    if (messagesEl.querySelector('.dga-summary')) return;
+    const card = document.createElement('div');
+    card.className = 'dga-summary';
+    const heading = document.createElement('h4');
+    heading.textContent = 'Your project brief';
+    const dl = document.createElement('dl');
+    summaryData().forEach(([label,value]) => {
+      const dt = document.createElement('dt'), dd = document.createElement('dd');
+      dt.textContent = label; dd.textContent = value;
+      dl.append(dt,dd);
+    });
+    const actions = document.createElement('div');
+    actions.className = 'dga-summary-actions';
+    const whatsapp = document.createElement('button');
+    whatsapp.type = 'button'; whatsapp.textContent = 'Send via WhatsApp';
+    whatsapp.disabled = !/^\d{7,15}$/.test(DGA_CHAT_CONFIG.whatsappNumber);
+    whatsapp.title = whatsapp.disabled ? 'Studio WhatsApp number is not configured yet.' : 'Open WhatsApp with this brief';
+    whatsapp.addEventListener('click', sendBriefToWhatsApp);
+    const newEnquiry = document.createElement('button');
+    newEnquiry.type = 'button'; newEnquiry.className = 'secondary'; newEnquiry.textContent = 'New enquiry';
+    newEnquiry.addEventListener('click', () => { resetConversation(); startConversation(); });
+    const review = document.createElement('button');
+    review.type = 'button'; review.className = 'secondary'; review.textContent = 'Review details';
+    review.addEventListener('click', () => botSay('Your brief is shown above. You can restart the enquiry to update any answers, or contact the studio team directly.'));
+    actions.append(whatsapp,newEnquiry,review);
+    card.append(heading,dl,actions);
+    messagesEl.appendChild(card);
+  }
+
+  function finishBrief() {
+    state.step = 'complete';
+    state.summaryShown = true;
+    updateLeadCategory();
+    const estimate = estimateProject();
+    botSay(`Your project brief is ready. ${estimate}\n\nPlease review the details below. The studio team will confirm the scope and next steps after reviewing your enquiry.`, null, () => {
+      renderSummaryCard();
+      persist();
+    });
+  }
+
+  function sendBriefToWhatsApp() {
+    const number = DGA_CHAT_CONFIG.whatsappNumber;
+    if (!/^\d{7,15}$/.test(number)) {
+      botSay('WhatsApp is not configured yet. The studio owner needs to add the verified WhatsApp number in DGA_CHAT_CONFIG before this option can be used.');
+      return;
+    }
+    const lines = [`Hello ${DGA_CHAT_CONFIG.studioName}, I would like to discuss an interior design project.`, '', 'PROJECT BRIEF'];
+    summaryData().forEach(([label,value]) => lines.push(`${label}: ${value}`));
+    lines.push('', 'Please let me know the next steps.');
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(lines.join('\n'))}`,'_blank','noopener');
+  }
+
+  function handleUserInput(raw) {
+    const value = String(raw || '').trim();
+    if (!value) return;
+    addMessage('user', value);
+    const quickWrap = messagesEl.querySelector('.dga-quick-replies');
+    if (quickWrap) quickWrap.remove();
+    input.value = '';
+
+    const normal = normalise(value);
+    const activeFlowStep = state.step in flow;
+    const questionLike = /\b(how|what|when|where|why|can you|do you|does|is there|tell me about|price|pricing|cost|services|portfolio|timeline|3d|visualisation|visualization|consultation)\b/.test(normal);
+    if (activeFlowStep && questionLike) {
+      const questionIntent = detectIntent(value) || (findFAQ(value) || {}).key;
+      if (questionIntent && answerKnowledge(questionIntent)) {
+        window.setTimeout(() => { if (state.step in flow) askStep(state.step); }, 850);
+        return;
+      }
+    }
+    if (activeFlowStep) { handleFlowAnswer(value); return; }
+
+    if (['welcome','complete'].includes(state.step) && /(plan a project|start a project|project brief|new project|start enquiry)/.test(normal)) {
+      beginBrief(); return;
+    }
+    if (/(restart|start over|reset conversation|new enquiry)/.test(normal)) {
+      resetConversation(); startConversation(); return;
+    }
+    if (/(skip|prefer not|rather not)/.test(normal) && state.step === 'welcome') {
+      botSay('No problem. You can ask about services, pricing, process, timelines, materials or the portfolio.', ['Explore services','Pricing','Project timeline']); return;
+    }
+
+    const intent = detectIntent(value);
+    if (intent && answerKnowledge(intent)) return;
+    const faq = findFAQ(value);
+    if (faq) { botSay(faq.answer, ['Plan a project','Ask another question']); return; }
+
+    if (state.step === 'welcome') {
+      botSay('I can help with a project brief or answer questions about the studio. Try asking about pricing, services, 3D visualisation, timelines, materials, consultation or portfolio.', [
+        'Plan a project','Pricing','Services','3D visualisation','Project timeline'
+      ]);
+    } else {
+      botSay('I’m a rule-based studio assistant, so I may not have that detail. I don’t want to guess. The studio team can confirm it—would you like to prepare a project brief or ask about a known topic?', [
+        'Start a project brief','Pricing','Services','Consultation','Portfolio'
+      ]);
+    }
+  }
+
+  function resetConversation() {
+    state.messages = [];
+    state.answers = {};
+    state.step = 'welcome';
+    state.history = [];
+    state.summaryShown = false;
+    state.leadCategory = 'Early-stage Enquiry';
+    try { sessionStorage.removeItem(DGA_CHAT_CONFIG.sessionKey); } catch (_) {}
+    messagesEl.innerHTML = '';
+  }
+
+  launcher.addEventListener('click', () => panel.classList.contains('dga-open') ? closeChat() : openChat());
+  closeButton.addEventListener('click', closeChat);
+  restartButton.addEventListener('click', () => {
+    resetConversation();
+    botSay('Let’s start fresh. What would you like to do?', ['Plan a project','Explore services','Ask a question']);
+  });
+  function sendChatMessage() {
+    const message = input.value.trim();
+    if (!message) {
+      input.focus();
+      return;
+    }
+    handleUserInput(message);
+  }
+
+  // Explicit click handling keeps the send button reliable even when other
+  // site-level form scripts or styles interfere with native form submission.
+  sendButton.addEventListener('click', sendChatMessage);
+
+  // Enter still sends; Shift+Enter remains available if the input is changed
+  // to a multiline field in a future update.
+  input.addEventListener('keydown', event => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendChatMessage();
+    }
+  });
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    sendChatMessage();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && panel.classList.contains('dga-open')) closeChat();
+  });
+
+  if (restore()) {
+    renderAll();
+  } else {
+    state.messages = [];
+    state.answers = {};
+    state.step = 'welcome';
+    state.history = [];
+  }
+
+  /* Keep the qualification result private: it is intentionally not rendered
+     in customer-facing messages or the project brief. */
+  window.DesignFeatherInteriorChat = {
+    getLeadCategory: () => updateLeadCategory(),
+    getConversation: () => state.history.slice(),
+    getAnswers: () => ({...state.answers}),
+    config: DGA_CHAT_CONFIG
+  };
+  window.DigitoraChat = window.DesignFeatherInteriorChat;
+})();
+</script>
+
+<script>
+
+/* ================= DESIGN FEATHER INTERIOR — TOTAL PROJECT BUDGET PLANNER ================= */
+(function(){
+  const root = document.getElementById('cost-estimator');
+  if (!root) return;
+
+  // Indicative Bangladesh market planning bands (BDT / measured sq. ft.).
+  // These are not Design Feather Interior quotations. Review and adjust before publishing.
+  const marketBands = {
+    'Residential': [
+      {key:'basic', name:'Basic Plan', min:1200, max:1800, designRate:90,
+       description:'A functional, budget-conscious finish with essential built-ins, practical materials and straightforward detailing.'},
+      {key:'premium', name:'Premium Plan', min:1800, max:3000, designRate:100,
+       description:'A balanced finish level with better material choices, considered lighting and more customised furniture details.'},
+      {key:'luxury', name:'Luxurious Plan', min:3000, max:6000, designRate:120,
+       description:'A high-end direction with extensive customisation, premium materials, bespoke furniture and elevated detailing.'}
+    ],
+    'Commercial': [
+      {key:'basic', name:'Basic Plan', min:1500, max:2000, designRate:90,
+       description:'A practical workspace fit-out focused on essential planning, durable finishes and functional furniture.'},
+      {key:'premium', name:'Premium Plan', min:2000, max:3000, designRate:100,
+       description:'A polished commercial environment with upgraded finishes, tailored work zones and considered lighting.'},
+      {key:'luxury', name:'Luxurious Plan', min:3000, max:6000, designRate:120,
+       description:'A distinctive, high-specification environment with bespoke joinery, premium finishes and detailed custom elements.'}
+    ],
+    'Café & Restaurant': [
+      {key:'basic', name:'Basic Plan', min:1500, max:2000, designRate:90,
+       description:'A practical hospitality fit-out with efficient seating, durable finishes and essential service flow planning.'},
+      {key:'premium', name:'Premium Plan', min:2000, max:3000, designRate:100,
+       description:'A more considered guest experience with upgraded finishes, custom feature elements and refined lighting.'},
+      {key:'luxury', name:'Luxurious Plan', min:3000, max:6000, designRate:120,
+       description:'A distinctive hospitality environment with bespoke detailing and premium finishes. Kitchen equipment and specialist MEP may require separate costing.'}
+    ],
+    'Retail / Store': [
+      {key:'basic', name:'Basic Plan', min:1500, max:2000, designRate:90,
+       description:'A functional retail layout with essential display fixtures, durable finishes and clear customer circulation.'},
+      {key:'premium', name:'Premium Plan', min:2000, max:3000, designRate:100,
+       description:'A branded retail experience with customised displays, upgraded finishes and considered lighting.'},
+      {key:'luxury', name:'Luxurious Plan', min:3000, max:6000, designRate:120,
+       description:'A high-impact retail environment with bespoke display systems, premium materials and detailed brand moments.'}
+    ]
+  };
+
+  const project = document.getElementById('dga-est-project');
+  const area = document.getElementById('dga-est-sft');
+  const budget = document.getElementById('dga-est-budget');
+  const scope = document.getElementById('dga-est-scope');
+  const planEl = document.getElementById('dga-est-plan');
+  const descEl = document.getElementById('dga-est-description');
+  const amountEl = document.getElementById('dga-est-amount');
+  const amountLabel = document.getElementById('dga-est-amount-label');
+  const rateEl = document.getElementById('dga-est-rate');
+  const warning = document.getElementById('dga-est-warning');
+  const contact = document.getElementById('dga-est-contact');
+  const status = document.getElementById('dga-est-status');
+  const meter = document.getElementById('dga-est-meter-fill');
+  const meterCaption = document.getElementById('dga-est-meter-caption');
+  const designFee = document.getElementById('dga-est-design-fee');
+  const designFeeNote = document.getElementById('dga-est-design-fee-note');
+
+  const money = value => '৳' + Math.round(value).toLocaleString('en-IN');
+  const lakh = value => {
+    const n = value / 100000;
+    return '৳' + (Number.isInteger(n) ? n.toFixed(0) : n.toFixed(1)) + ' lakh';
+  };
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+  const showWarning = message => {
+    warning.textContent = message;
+    warning.classList.add('is-visible');
+  };
+  const clearWarning = () => {
+    warning.textContent = '';
+    warning.classList.remove('is-visible');
+  };
+
+  function updateEstimate(){
+    const sqft = Number(area.value);
+    const totalBudget = Number(budget.value);
+    const validArea = Number.isFinite(sqft) && sqft >= 100 && sqft <= 100000;
+    const validBudget = Number.isFinite(totalBudget) && totalBudget >= 100000 && totalBudget <= 1000000000;
+    const projectName = project.value;
+    const scopeName = scope.value;
+
+    setText('dga-est-summary-project', projectName);
+    setText('dga-est-summary-area', validArea ? sqft.toLocaleString('en-IN') + ' sq. ft.' : '—');
+    setText('dga-est-summary-budget', validBudget ? lakh(totalBudget) : '—');
+    setText('dga-est-summary-rate', validArea && validBudget ? money(totalBudget / sqft) : '—');
+
+    clearWarning();
+    meter.style.width = '0%';
+    designFee.textContent = '—';
+
+    if (!validArea || !validBudget){
+      planEl.textContent = !validArea ? 'Enter your project area' : 'Enter your total budget';
+      descEl.textContent = 'Add a valid floor area and total project budget to receive a recommendation.';
+      amountEl.textContent = '—';
+      rateEl.textContent = 'Your planning range will appear here';
+      amountLabel.textContent = 'Indicative total project range';
+      status.textContent = 'Waiting for project details';
+      designFeeNote.textContent = 'Your selected design package reference will appear here.';
+      meterCaption.textContent = 'Complete the project details to check budget fit.';
+      showWarning('Please enter an area between 100 and 100,000 sq. ft. and a total budget between ৳1 lakh and ৳100 crore.');
+      contact.setAttribute('aria-disabled','true');
+      contact.style.opacity = '.55';
+      contact.style.pointerEvents = 'none';
+      return;
+    }
+
+    const budgetPerSft = totalBudget / sqft;
+    const bands = marketBands[projectName] || marketBands.Residential;
+    const basic = bands[0], premium = bands[1], luxury = bands[2];
+    let chosen = null;
+    let budgetStatus = '';
+
+    if (budgetPerSft < basic.min){
+      budgetStatus = 'below';
+    } else if (budgetPerSft < premium.min){
+      chosen = basic;
+      budgetStatus = 'basic';
+    } else if (budgetPerSft < luxury.min){
+      chosen = premium;
+      budgetStatus = 'premium';
+    } else {
+      chosen = luxury;
+      budgetStatus = 'luxury';
+    }
+
+    const partialScope = scopeName !== 'Full interior design & execution';
+    let low, high, recommendedName, recommendedDescription, feeRate, labelText;
+
+    if (chosen){
+      low = sqft * chosen.min;
+      high = sqft * chosen.max;
+      recommendedName = chosen.name;
+      recommendedDescription = chosen.description;
+      feeRate = chosen.designRate;
+      labelText = 'Indicative total project range';
+      status.textContent = 'Budget-matched recommendation';
+      amountEl.textContent = lakh(low) + ' – ' + lakh(high);
+      rateEl.textContent = 'Approx. ' + money(chosen.min) + '–' + money(chosen.max) + ' per sq. ft.';
+      setText('dga-est-summary-rate', money(budgetPerSft) + ' / sq. ft.');
+      const midpoint = (chosen.min + chosen.max) / 2;
+      const position = Math.max(4, Math.min(100, ((budgetPerSft - chosen.min) / Math.max(1, chosen.max - chosen.min)) * 100));
+      meter.style.width = position + '%';
+      if (budgetPerSft < midpoint){
+        meterCaption.textContent = 'Your budget is in the lower part of this package range.';
+      } else if (budgetPerSft <= chosen.max){
+        meterCaption.textContent = 'Your budget is in the upper part of this package range.';
+      } else {
+        meterCaption.textContent = 'Your budget may allow extra detailing within this package.';
+      }
+      if (budgetPerSft < chosen.max){
+        showWarning('This package is a planning match, not a guaranteed specification. The final scope and material schedule must be adjusted to stay within your total budget.');
+      } else {
+        showWarning('Your budget is at or above this package range. The studio can review whether additional custom features or higher specifications make sense.');
+      }
+    } else {
+      low = sqft * basic.min;
+      high = sqft * basic.max;
+      recommendedName = 'Budget below starting range';
+      recommendedDescription = 'Your current budget per sq. ft. is below the indicative starting point for a complete ' + projectName.toLowerCase() + ' interior. Consider reducing the area or phasing the work.';
+      feeRate = basic.designRate;
+      labelText = 'Basic full-project reference';
+      status.textContent = 'Budget gap to review';
+      amountEl.textContent = lakh(low) + ' – ' + lakh(high);
+      rateEl.textContent = 'Basic reference: ' + money(basic.min) + '–' + money(basic.max) + ' per sq. ft.';
+      meter.style.width = '8%';
+      meterCaption.textContent = 'Your current budget is below the Basic planning band.';
+      showWarning('Your budget works out to ' + money(budgetPerSft) + ' per sq. ft. The indicative Basic range starts around ' + money(basic.min) + ' per sq. ft. A smaller scope or phased execution may be more suitable.');
+    }
+
+    planEl.textContent = recommendedName;
+    descEl.textContent = recommendedDescription;
+    amountLabel.textContent = labelText;
+    setText('dga-est-summary-rate', money(budgetPerSft) + ' / sq. ft.');
+    designFee.textContent = money(sqft * feeRate);
+    designFeeNote.textContent = (chosen ? chosen.name : 'Basic Plan') + ' design-fee reference: ' + money(feeRate) + ' / sq. ft. This is a planning reference only; it is not added on top of the overall project range. Confirm exact design deliverables with the studio.';
+
+    if (partialScope){
+      showWarning((warning.textContent ? warning.textContent + ' ' : '') + (scopeName === 'Selected rooms / zones'
+        ? 'You selected a partial area. Enter only the combined area of the rooms or zones included; the rate can still vary by room type and joinery.'
+        : 'You selected design-only. The displayed market range is a full design-and-execution benchmark and does not represent a design-only quote. Ask the studio for a separate design fee proposal.'));
+      if (scopeName === 'Design & planning only'){
+        amountLabel.textContent = 'Full-project benchmark (not your design-only quote)';
+      }
+    }
+
+    contact.removeAttribute('aria-disabled');
+    contact.style.opacity = '1';
+    contact.style.pointerEvents = 'auto';
+    contact.onclick = function(){
+      const summary = [
+        'Project type: ' + projectName,
+        'Area: ' + sqft.toLocaleString('en-IN') + ' sq. ft.',
+        'Project scope: ' + scopeName,
+        'Total available budget: ' + money(totalBudget),
+        'Budget per sq. ft.: ' + money(budgetPerSft),
+        'Recommended plan: ' + recommendedName,
+        'Indicative project range: ' + amountEl.textContent,
+        'Design fee reference: ' + designFee.textContent
+      ].join('\n');
+
+      const projectField = document.getElementById('contactProject');
+      const budgetField = document.getElementById('contactBudget');
+      const messageField = document.getElementById('contactMessage');
+
+      if (projectField){
+        const wanted = projectName === 'Café & Restaurant' ? 'Restaurant / Hospitality' :
+          projectName === 'Retail / Store' ? 'Retail / Showroom' :
+          projectName === 'Commercial' ? 'Office / Commercial' : 'Residential';
+        const option = Array.from(projectField.options).find(item => item.text.trim() === wanted || item.value.trim() === wanted);
+        if (option) projectField.value = option.value || option.text;
+      }
+      if (budgetField){
+        const budgetOption = Array.from(budgetField.options).find(item => {
+          const value = item.textContent.toLowerCase();
+          return value.includes('discuss') || value.includes('lakh');
+        });
+        if (budgetOption) budgetField.value = budgetOption.value || budgetOption.textContent;
+      }
+      if (messageField) messageField.value = summary + '\n\nI would like a detailed, itemised quotation for this project.';
+    };
+  }
+
+  [project, area, budget, scope].forEach(el => {
+    el.addEventListener('input', updateEstimate);
+    el.addEventListener('change', updateEstimate);
+  });
+  updateEstimate();
+})();
+</script>
+</body>
+</html>
